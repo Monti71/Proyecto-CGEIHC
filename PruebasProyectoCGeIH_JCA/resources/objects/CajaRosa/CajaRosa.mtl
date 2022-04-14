@@ -34,6 +34,6 @@ newmtl Material__48
 	Kd 0.5880 0.5880 0.5880
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka C:\Users\Jessica Castro\Pictures\Saved Pictures\9fb329ccf8dc065859c735e958ef5fa4.jpg
-	map_Kd C:\Users\Jessica Castro\Pictures\Saved Pictures\9fb329ccf8dc065859c735e958ef5fa4.jpg
+	map_Ka bricks.jpg
+	map_Kd bricks.jpg
 	map_Ks _Map_Output_Selector.tga
