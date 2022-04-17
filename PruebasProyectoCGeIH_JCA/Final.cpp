@@ -280,6 +280,7 @@ int main()
 	//Model cajaRosa("resources/objects/CajaRosa/CajaRosa.obj");
 	Model cuboAuto1("resources/objects/CuboAuto1/cuboAuto1.obj");
 	Model cuboAuto1Vidrio("resources/objects/CuboAuto1/cuboAuto1-vidrio.obj");
+	Model llantaAuto1("resources/objects/CuboAuto1/llantaAuto1.obj");
 
 	ModelAnim animacionPersonaje("resources/objects/Personaje1/PersonajeBrazo.dae");
 	animacionPersonaje.initShaders(animShader.ID);
@@ -415,7 +416,8 @@ int main()
 		//Cubo para el primer auto: cuboAuto1
 		//Se realizó el cubo con 3dmax además de agregarle una textura. Inicialmente mide 40 por lado
 		tmpCA1 = model = glm::translate(glm::mat4(1.0f), glm::vec3(120.0f, 0.0f, 30.0f));
-		model = glm::scale(model, glm::vec3(0.55f, 0.3f, 0.3f));//Con esto medirá x = 22, y = 12, z = 12
+		model = glm::translate(tmpCA1, glm::vec3(0.0f, 2.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.55f, 0.25f, 0.3f));//Con esto medirá x = 22, y = 10, z = 12
 		staticShader.setMat4("model", model);
 		cuboAuto1.Draw(staticShader);
 
@@ -480,22 +482,51 @@ int main()
 
 		//Ventana lateral 1 para auto 1 (cuboAuto1)
 		model = glm::translate(tmpCA1, glm::vec3(0.0f, 0.0f, 5.5f));
-		model = glm::scale(model, glm::vec3(0.25f, 0.275f, 0.025f));//x =10, y = 11, z = 1
+		model = glm::scale(model, glm::vec3(0.25f, 0.275f, 0.025f));//x = 10, y = 11, z = 1
 		staticShader.setMat4("model", model);
 		cuboAuto1Vidrio.Draw(staticShader);
 
 		//Ventana lateral 2 para auto 1 (cuboAuto1)
 		model = glm::translate(tmpCA1, glm::vec3(0.0f, 0.0f, -5.5f));
-		model = glm::scale(model, glm::vec3(0.25f, 0.275f, 0.025f));//x =10, y = 11, z = 1
+		model = glm::scale(model, glm::vec3(0.25f, 0.275f, 0.025f));//x = 10, y = 11, z = 1
 		staticShader.setMat4("model", model);
 		cuboAuto1Vidrio.Draw(staticShader);
 
 		//Ventana trasero para auto 1 (cuboAuto1)
 		model = glm::translate(tmpCA1, glm::vec3(6.5f, 0.0f, 0.0f));
 		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(0.2f, 0.275f, 0.025f));//x =10, y = 11, z = 1
+		model = glm::scale(model, glm::vec3(0.2f, 0.275f, 0.025f));//x = 10, y = 11, z = 1
 		staticShader.setMat4("model", model);
 		cuboAuto1Vidrio.Draw(staticShader);
+
+		//Llanta trasera izquierda para auto 1 (cuboAuto1). Originalmente tiene un radio de 20 y una altura de 10
+		model = glm::translate(tmpCA1, glm::vec3(2.0f, -11.0f, 2.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.125f, 0.2f, 0.125f));//x = 5, y = 2, z = 5
+		staticShader.setMat4("model", model);
+		llantaAuto1.Draw(staticShader);
+
+		//Llanta trasera derecha para auto 1 (cuboAuto1). Originalmente tiene un radio de 20 y una altura de 10
+		model = glm::translate(tmpCA1, glm::vec3(2.0f, -11.0f, -4.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.125f, 0.2f, 0.125f));//x = 5, y = 2, z = 5
+		staticShader.setMat4("model", model);
+		llantaAuto1.Draw(staticShader);
+
+		//Llanta delantera izquierda para auto 1 (cuboAuto1). Originalmente tiene un radio de 20 y una altura de 10
+		model = glm::translate(tmpCA1, glm::vec3(-8.0f, -11.0f, 2.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.125f, 0.2f, 0.125f));//x = 5, y = 2, z = 5
+		staticShader.setMat4("model", model);
+		llantaAuto1.Draw(staticShader);
+
+		//Llanta delantera derecha para auto 1 (cuboAuto1). Originalmente tiene un radio de 20 y una altura de 10
+		model = glm::translate(tmpCA1, glm::vec3(-8.0f, -11.0f, -4.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.125f, 0.2f, 0.125f));//x = 5, y = 2, z = 5
+		staticShader.setMat4("model", model);
+		llantaAuto1.Draw(staticShader);
+
 
 
 
