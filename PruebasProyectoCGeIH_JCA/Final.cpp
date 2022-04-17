@@ -277,7 +277,9 @@ int main()
 	Model casaVieja("resources/objects/casa/OldHouse.obj");
 	//Model cubo("resources/objects/cubo/cube02.obj");
 	Model casaDoll("resources/objects/casa/DollHouse.obj");
-	Model cajaRosa("resources/objects/CajaRosa/CajaRosa.obj");
+	//Model cajaRosa("resources/objects/CajaRosa/CajaRosa.obj");
+	Model cuboAuto1("resources/objects/CuboAuto1/cuboAuto1.obj");
+	Model cuboAuto1Vidrio("resources/objects/CuboAuto1/cuboAuto1-vidrio.obj");
 
 	ModelAnim animacionPersonaje("resources/objects/Personaje1/PersonajeBrazo.dae");
 	animacionPersonaje.initShaders(animShader.ID);
@@ -349,6 +351,8 @@ int main()
 
 		glm::mat4 model = glm::mat4(1.0f);
 		glm::mat4 tmp = glm::mat4(1.0f);
+		glm::mat4 tmpCA1 = glm::mat4(1.0f);//Temporal para cubo auto 1
+
 		// view/projection transformations
 		glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 10000.0f);
 		glm::mat4 view = camera.GetViewMatrix();
@@ -401,10 +405,100 @@ int main()
 		staticShader.setMat4("view", view);
 
 		//Caja rosa y caja con textura editadas con 3dmax.
+		/*
 		model = glm::translate(glm::mat4(1.0f), glm::vec3(120.0f, 0.0f, 30.0f));
 		model = glm::scale(model, glm::vec3(2.0f, 1.0f, 0.5f));
 		staticShader.setMat4("model", model);
 		cajaRosa.Draw(staticShader);
+		*/
+
+		//Cubo para el primer auto: cuboAuto1
+		//Se realizó el cubo con 3dmax además de agregarle una textura. Inicialmente mide 40 por lado
+		tmpCA1 = model = glm::translate(glm::mat4(1.0f), glm::vec3(120.0f, 0.0f, 30.0f));
+		model = glm::scale(model, glm::vec3(0.55f, 0.3f, 0.3f));//Con esto medirá x = 22, y = 12, z = 12
+		staticShader.setMat4("model", model);
+		cuboAuto1.Draw(staticShader);
+
+		tmpCA1 = model = glm::translate(tmpCA1, glm::vec3(3.0f, 12.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.3f, 0.3f, 0.25f));//x = 12, y = 12, z = 10
+		staticShader.setMat4("model", model);
+		cuboAuto1.Draw(staticShader);
+
+		/*//Intento de poner parte de enfrente del coche más completa
+		model = glm::translate(tmpCA1, glm::vec3(-10.0f, 0.0f, 5.0f));
+		model = glm::rotate(model, glm::radians(-18.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+		model = glm::scale(model, glm::vec3(0.0125f, 0.3f, 0.05f));//x = 0.5, y = 10, z = 0.5
+		staticShader.setMat4("model", model);
+		cuboAuto1.Draw(staticShader);
+		*/
+
+		//Ventana frontal para el auto 1 (cuboAuto1)
+		model = glm::translate(tmpCA1, glm::vec3(-8.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.1f, 0.025f, 0.25f));//x = 4, y = 1, z = 10
+		staticShader.setMat4("model", model);
+		cuboAuto1Vidrio.Draw(staticShader);
+
+		model = glm::translate(tmpCA1, glm::vec3(-7.75f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.0875f, 0.025f, 0.25f));//x = 3.5, y = 1, z = 10
+		staticShader.setMat4("model", model);
+		cuboAuto1Vidrio.Draw(staticShader);
+
+		model = glm::translate(tmpCA1, glm::vec3(-7.5f, 2.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.075f, 0.025f, 0.25f));//x = 3, y = 1, z = 10
+		staticShader.setMat4("model", model);
+		cuboAuto1Vidrio.Draw(staticShader);
+
+		model = glm::translate(tmpCA1, glm::vec3(-7.25f, 3.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.0625f, 0.025f, 0.25f));//x = 2.5, y = 1, z = 10
+		staticShader.setMat4("model", model);
+		cuboAuto1Vidrio.Draw(staticShader);
+
+		model = glm::translate(tmpCA1, glm::vec3(-7.0f, 4.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.05f, 0.025f, 0.25f));//x = 2.0, y = 1, z = 10
+		staticShader.setMat4("model", model);
+		cuboAuto1Vidrio.Draw(staticShader);
+
+		model = glm::translate(tmpCA1, glm::vec3(-6.75f, 5.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.0375f, 0.025f, 0.25f));//x = 1.5, y = 1, z = 10
+		staticShader.setMat4("model", model);
+		cuboAuto1Vidrio.Draw(staticShader);
+
+		model = glm::translate(tmpCA1, glm::vec3(-6.5f, 6.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.025f, 0.025f, 0.25f));//x = 1.0, y = 1, z = 10
+		staticShader.setMat4("model", model);
+		cuboAuto1Vidrio.Draw(staticShader);
+
+		model = glm::translate(tmpCA1, glm::vec3(-6.25f, 7.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.0125f, 0.05f, 0.25f));//x = 0.5, y = 2, z = 10
+		staticShader.setMat4("model", model);
+		cuboAuto1Vidrio.Draw(staticShader);
+		
+		model = glm::translate(tmpCA1, glm::vec3(-6.125f, 9.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.00625f, 0.05f, 0.25f));//x = 0.25, y = 2, z = 10
+		staticShader.setMat4("model", model);
+		cuboAuto1Vidrio.Draw(staticShader);
+
+		//Ventana lateral 1 para auto 1 (cuboAuto1)
+		model = glm::translate(tmpCA1, glm::vec3(0.0f, 0.0f, 5.5f));
+		model = glm::scale(model, glm::vec3(0.25f, 0.275f, 0.025f));//x =10, y = 11, z = 1
+		staticShader.setMat4("model", model);
+		cuboAuto1Vidrio.Draw(staticShader);
+
+		//Ventana lateral 2 para auto 1 (cuboAuto1)
+		model = glm::translate(tmpCA1, glm::vec3(0.0f, 0.0f, -5.5f));
+		model = glm::scale(model, glm::vec3(0.25f, 0.275f, 0.025f));//x =10, y = 11, z = 1
+		staticShader.setMat4("model", model);
+		cuboAuto1Vidrio.Draw(staticShader);
+
+		//Ventana trasero para auto 1 (cuboAuto1)
+		model = glm::translate(tmpCA1, glm::vec3(6.5f, 0.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.2f, 0.275f, 0.025f));//x =10, y = 11, z = 1
+		staticShader.setMat4("model", model);
+		cuboAuto1Vidrio.Draw(staticShader);
+
+
+
 
 		model = glm::translate(glm::mat4(1.0f), glm::vec3(250.0f, 0.0f, -10.0f));
 		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
