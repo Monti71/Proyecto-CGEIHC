@@ -85,6 +85,8 @@ float	incX = 0.0f,
 		rotInc = 0.0f,
 		giroMonitoInc = 0.0f;
 
+float   escalaAuto1_JCA = 0.5f;
+
 #define MAX_FRAMES 9
 int i_max_steps = 60;
 int i_curr_steps = 0;
@@ -247,12 +249,12 @@ int main()
 
 	vector<std::string> faces
 	{
-		"resources/skybox/right.jpg",
-		"resources/skybox/left.jpg",
-		"resources/skybox/top.jpg",
-		"resources/skybox/bottom.jpg",
-		"resources/skybox/front.jpg",
-		"resources/skybox/back.jpg"
+		"resources/skybox/derecha.jpg",
+		"resources/skybox/izquierda.jpg",
+		"resources/skybox/arriba.jpg",
+		"resources/skybox/abajo.jpg",
+		"resources/skybox/frente.jpg",
+		"resources/skybox/atras.jpg"
 	};
 
 	Skybox skybox = Skybox(faces);
@@ -415,14 +417,15 @@ int main()
 
 		//Cubo para el primer auto: cuboAuto1
 		//Se realizó el cubo con 3dmax además de agregarle una textura. Inicialmente mide 40 por lado
-		tmpCA1 = model = glm::translate(glm::mat4(1.0f), glm::vec3(120.0f, 0.0f, 30.0f));
-		model = glm::translate(tmpCA1, glm::vec3(0.0f, 2.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(0.55f, 0.25f, 0.3f));//Con esto medirá x = 22, y = 10, z = 12
+		//tmpCA1 = model = glm::translate(glm::mat4(1.0f), glm::vec3(120.0f, 0.0f, 30.0f));
+		tmpCA1 = model = glm::translate(glm::mat4(1.0f), glm::vec3(120.0f, -1.0f, 30.0f));
+		model = glm::translate(tmpCA1, glm::vec3(0.0f * escalaAuto1_JCA, 2.0f * escalaAuto1_JCA, 0.0f * escalaAuto1_JCA));
+		model = glm::scale(model, glm::vec3(0.55f * escalaAuto1_JCA, 0.25f * escalaAuto1_JCA, 0.3f * escalaAuto1_JCA));//Con esto medirá x = 22, y = 10, z = 12
 		staticShader.setMat4("model", model);
 		cuboAuto1.Draw(staticShader);
 
-		tmpCA1 = model = glm::translate(tmpCA1, glm::vec3(3.0f, 12.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(0.3f, 0.3f, 0.25f));//x = 12, y = 12, z = 10
+		tmpCA1 = model = glm::translate(tmpCA1, glm::vec3(3.0f * escalaAuto1_JCA, 12.0f * escalaAuto1_JCA, 0.0f * escalaAuto1_JCA));
+		model = glm::scale(model, glm::vec3(0.3f * escalaAuto1_JCA, 0.3f * escalaAuto1_JCA, 0.25f * escalaAuto1_JCA));//x = 12, y = 12, z = 10
 		staticShader.setMat4("model", model);
 		cuboAuto1.Draw(staticShader);
 
@@ -435,95 +438,95 @@ int main()
 		*/
 
 		//Ventana frontal para el auto 1 (cuboAuto1)
-		model = glm::translate(tmpCA1, glm::vec3(-8.0f, 0.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(0.1f, 0.025f, 0.25f));//x = 4, y = 1, z = 10
+		model = glm::translate(tmpCA1, glm::vec3(-8.0f * escalaAuto1_JCA, 0.0f * escalaAuto1_JCA, 0.0f * escalaAuto1_JCA));
+		model = glm::scale(model, glm::vec3(0.1f * escalaAuto1_JCA, 0.025f * escalaAuto1_JCA, 0.25f * escalaAuto1_JCA));//x = 4, y = 1, z = 10
 		staticShader.setMat4("model", model);
 		cuboAuto1Vidrio.Draw(staticShader);
 
-		model = glm::translate(tmpCA1, glm::vec3(-7.75f, 1.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(0.0875f, 0.025f, 0.25f));//x = 3.5, y = 1, z = 10
+		model = glm::translate(tmpCA1, glm::vec3(-7.75f * escalaAuto1_JCA, 1.0f * escalaAuto1_JCA, 0.0f * escalaAuto1_JCA));
+		model = glm::scale(model, glm::vec3(0.0875f * escalaAuto1_JCA, 0.025f * escalaAuto1_JCA, 0.25f * escalaAuto1_JCA));//x = 3.5, y = 1, z = 10
 		staticShader.setMat4("model", model);
 		cuboAuto1Vidrio.Draw(staticShader);
 
-		model = glm::translate(tmpCA1, glm::vec3(-7.5f, 2.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(0.075f, 0.025f, 0.25f));//x = 3, y = 1, z = 10
+		model = glm::translate(tmpCA1, glm::vec3(-7.5f * escalaAuto1_JCA, 2.0f * escalaAuto1_JCA, 0.0f * escalaAuto1_JCA));
+		model = glm::scale(model, glm::vec3(0.075f * escalaAuto1_JCA, 0.025f * escalaAuto1_JCA, 0.25f * escalaAuto1_JCA));//x = 3, y = 1, z = 10
 		staticShader.setMat4("model", model);
 		cuboAuto1Vidrio.Draw(staticShader);
 
-		model = glm::translate(tmpCA1, glm::vec3(-7.25f, 3.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(0.0625f, 0.025f, 0.25f));//x = 2.5, y = 1, z = 10
+		model = glm::translate(tmpCA1, glm::vec3(-7.25f * escalaAuto1_JCA, 3.0f * escalaAuto1_JCA, 0.0f * escalaAuto1_JCA));
+		model = glm::scale(model, glm::vec3(0.0625f * escalaAuto1_JCA, 0.025f * escalaAuto1_JCA, 0.25f * escalaAuto1_JCA));//x = 2.5, y = 1, z = 10
 		staticShader.setMat4("model", model);
 		cuboAuto1Vidrio.Draw(staticShader);
 
-		model = glm::translate(tmpCA1, glm::vec3(-7.0f, 4.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(0.05f, 0.025f, 0.25f));//x = 2.0, y = 1, z = 10
+		model = glm::translate(tmpCA1, glm::vec3(-7.0f * escalaAuto1_JCA, 4.0f * escalaAuto1_JCA, 0.0f * escalaAuto1_JCA));
+		model = glm::scale(model, glm::vec3(0.05f * escalaAuto1_JCA, 0.025f * escalaAuto1_JCA, 0.25f * escalaAuto1_JCA));//x = 2.0, y = 1, z = 10
 		staticShader.setMat4("model", model);
 		cuboAuto1Vidrio.Draw(staticShader);
 
-		model = glm::translate(tmpCA1, glm::vec3(-6.75f, 5.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(0.0375f, 0.025f, 0.25f));//x = 1.5, y = 1, z = 10
+		model = glm::translate(tmpCA1, glm::vec3(-6.75f * escalaAuto1_JCA, 5.0f * escalaAuto1_JCA, 0.0f * escalaAuto1_JCA));
+		model = glm::scale(model, glm::vec3(0.0375f * escalaAuto1_JCA, 0.025f * escalaAuto1_JCA, 0.25f * escalaAuto1_JCA));//x = 1.5, y = 1, z = 10
 		staticShader.setMat4("model", model);
 		cuboAuto1Vidrio.Draw(staticShader);
 
-		model = glm::translate(tmpCA1, glm::vec3(-6.5f, 6.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(0.025f, 0.025f, 0.25f));//x = 1.0, y = 1, z = 10
+		model = glm::translate(tmpCA1, glm::vec3(-6.5f * escalaAuto1_JCA, 6.0f * escalaAuto1_JCA, 0.0f * escalaAuto1_JCA));
+		model = glm::scale(model, glm::vec3(0.025f * escalaAuto1_JCA, 0.025f * escalaAuto1_JCA, 0.25f * escalaAuto1_JCA));//x = 1.0, y = 1, z = 10
 		staticShader.setMat4("model", model);
 		cuboAuto1Vidrio.Draw(staticShader);
 
-		model = glm::translate(tmpCA1, glm::vec3(-6.25f, 7.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(0.0125f, 0.05f, 0.25f));//x = 0.5, y = 2, z = 10
+		model = glm::translate(tmpCA1, glm::vec3(-6.25f * escalaAuto1_JCA, 7.0f * escalaAuto1_JCA, 0.0f * escalaAuto1_JCA));
+		model = glm::scale(model, glm::vec3(0.0125f * escalaAuto1_JCA, 0.05f * escalaAuto1_JCA, 0.25f * escalaAuto1_JCA));//x = 0.5, y = 2, z = 10
 		staticShader.setMat4("model", model);
 		cuboAuto1Vidrio.Draw(staticShader);
 		
-		model = glm::translate(tmpCA1, glm::vec3(-6.125f, 9.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(0.00625f, 0.05f, 0.25f));//x = 0.25, y = 2, z = 10
+		model = glm::translate(tmpCA1, glm::vec3(-6.125f * escalaAuto1_JCA, 9.0f * escalaAuto1_JCA, 0.0f * escalaAuto1_JCA));
+		model = glm::scale(model, glm::vec3(0.00625f * escalaAuto1_JCA, 0.05f * escalaAuto1_JCA, 0.25f * escalaAuto1_JCA));//x = 0.25, y = 2, z = 10
 		staticShader.setMat4("model", model);
 		cuboAuto1Vidrio.Draw(staticShader);
 
 		//Ventana lateral 1 para auto 1 (cuboAuto1)
-		model = glm::translate(tmpCA1, glm::vec3(0.0f, 0.0f, 5.5f));
-		model = glm::scale(model, glm::vec3(0.25f, 0.275f, 0.025f));//x = 10, y = 11, z = 1
+		model = glm::translate(tmpCA1, glm::vec3(0.0f * escalaAuto1_JCA, 0.0f * escalaAuto1_JCA, 5.5f * escalaAuto1_JCA));
+		model = glm::scale(model, glm::vec3(0.25f * escalaAuto1_JCA, 0.275f * escalaAuto1_JCA, 0.025f * escalaAuto1_JCA));//x = 10, y = 11, z = 1
 		staticShader.setMat4("model", model);
 		cuboAuto1Vidrio.Draw(staticShader);
 
 		//Ventana lateral 2 para auto 1 (cuboAuto1)
-		model = glm::translate(tmpCA1, glm::vec3(0.0f, 0.0f, -5.5f));
-		model = glm::scale(model, glm::vec3(0.25f, 0.275f, 0.025f));//x = 10, y = 11, z = 1
+		model = glm::translate(tmpCA1, glm::vec3(0.0f * escalaAuto1_JCA, 0.0f * escalaAuto1_JCA, -5.5f * escalaAuto1_JCA));
+		model = glm::scale(model, glm::vec3(0.25f * escalaAuto1_JCA, 0.275f * escalaAuto1_JCA, 0.025f * escalaAuto1_JCA));//x = 10, y = 11, z = 1
 		staticShader.setMat4("model", model);
 		cuboAuto1Vidrio.Draw(staticShader);
 
 		//Ventana trasero para auto 1 (cuboAuto1)
-		model = glm::translate(tmpCA1, glm::vec3(6.5f, 0.0f, 0.0f));
+		model = glm::translate(tmpCA1, glm::vec3(6.5f * escalaAuto1_JCA, 0.0f * escalaAuto1_JCA, 0.0f * escalaAuto1_JCA));
 		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(0.2f, 0.275f, 0.025f));//x = 10, y = 11, z = 1
+		model = glm::scale(model, glm::vec3(0.2f * escalaAuto1_JCA, 0.275f * escalaAuto1_JCA, 0.025f * escalaAuto1_JCA));//x = 10, y = 11, z = 1
 		staticShader.setMat4("model", model);
 		cuboAuto1Vidrio.Draw(staticShader);
 
 		//Llanta trasera izquierda para auto 1 (cuboAuto1). Originalmente tiene un radio de 20 y una altura de 10
-		model = glm::translate(tmpCA1, glm::vec3(2.0f, -11.0f, 2.0f));
+		model = glm::translate(tmpCA1, glm::vec3(2.0f * escalaAuto1_JCA, -11.0f * escalaAuto1_JCA, 2.0f * escalaAuto1_JCA));
 		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(0.125f, 0.2f, 0.125f));//x = 5, y = 2, z = 5
+		model = glm::scale(model, glm::vec3(0.125f * escalaAuto1_JCA, 0.2f * escalaAuto1_JCA, 0.125f * escalaAuto1_JCA));//x = 5, y = 2, z = 5
 		staticShader.setMat4("model", model);
 		llantaAuto1.Draw(staticShader);
 
 		//Llanta trasera derecha para auto 1 (cuboAuto1). Originalmente tiene un radio de 20 y una altura de 10
-		model = glm::translate(tmpCA1, glm::vec3(2.0f, -11.0f, -4.0f));
+		model = glm::translate(tmpCA1, glm::vec3(2.0f * escalaAuto1_JCA, -11.0f * escalaAuto1_JCA, -4.0f * escalaAuto1_JCA));
 		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(0.125f, 0.2f, 0.125f));//x = 5, y = 2, z = 5
+		model = glm::scale(model, glm::vec3(0.125f * escalaAuto1_JCA, 0.2f * escalaAuto1_JCA, 0.125f * escalaAuto1_JCA));//x = 5, y = 2, z = 5
 		staticShader.setMat4("model", model);
 		llantaAuto1.Draw(staticShader);
 
 		//Llanta delantera izquierda para auto 1 (cuboAuto1). Originalmente tiene un radio de 20 y una altura de 10
-		model = glm::translate(tmpCA1, glm::vec3(-8.0f, -11.0f, 2.0f));
+		model = glm::translate(tmpCA1, glm::vec3(-8.0f * escalaAuto1_JCA, -11.0f * escalaAuto1_JCA, 2.0f * escalaAuto1_JCA));
 		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(0.125f, 0.2f, 0.125f));//x = 5, y = 2, z = 5
+		model = glm::scale(model, glm::vec3(0.125f * escalaAuto1_JCA, 0.2f * escalaAuto1_JCA, 0.125f * escalaAuto1_JCA));//x = 5, y = 2, z = 5
 		staticShader.setMat4("model", model);
 		llantaAuto1.Draw(staticShader);
 
 		//Llanta delantera derecha para auto 1 (cuboAuto1). Originalmente tiene un radio de 20 y una altura de 10
-		model = glm::translate(tmpCA1, glm::vec3(-8.0f, -11.0f, -4.0f));
+		model = glm::translate(tmpCA1, glm::vec3(-8.0f * escalaAuto1_JCA, -11.0f * escalaAuto1_JCA, -4.0f * escalaAuto1_JCA));
 		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(0.125f, 0.2f, 0.125f));//x = 5, y = 2, z = 5
+		model = glm::scale(model, glm::vec3(0.125f * escalaAuto1_JCA, 0.2f * escalaAuto1_JCA, 0.125f * escalaAuto1_JCA));//x = 5, y = 2, z = 5
 		staticShader.setMat4("model", model);
 		llantaAuto1.Draw(staticShader);
 
