@@ -85,7 +85,12 @@ float	incX = 0.0f,
 		rotInc = 0.0f,
 		giroMonitoInc = 0.0f;
 
-float   escalaAuto1_JCA = 0.5f;
+//*************************************************************************************************************
+//*************       MODIFICACIONES DE JESS      ****************************
+float   escalaAuto1_JCA = 0.3f;
+
+//*************************************************************************************************************
+
 
 #define MAX_FRAMES 9
 int i_max_steps = 60;
@@ -280,9 +285,15 @@ int main()
 	//Model cubo("resources/objects/cubo/cube02.obj");
 	Model casaDoll("resources/objects/casa/DollHouse.obj");
 	//Model cajaRosa("resources/objects/CajaRosa/CajaRosa.obj");
+
+	//*************************************************************************************************************
+	//*************       MODIFICACIONES DE JESS      ****************************
 	Model cuboAuto1("resources/objects/CuboAuto1/cuboAuto1.obj");
 	Model cuboAuto1Vidrio("resources/objects/CuboAuto1/cuboAuto1-vidrio.obj");
 	Model llantaAuto1("resources/objects/CuboAuto1/llantaAuto1.obj");
+
+	Model Edificio1("resources/objects/Edificio1/Edificio1.obj");
+	//*************************************************************************************************************
 
 	ModelAnim animacionPersonaje("resources/objects/Personaje1/PersonajeBrazo.dae");
 	animacionPersonaje.initShaders(animShader.ID);
@@ -415,6 +426,8 @@ int main()
 		cajaRosa.Draw(staticShader);
 		*/
 
+		//*************************************************************************************************************
+		//*************       MODIFICACIONES DE JESS      ****************************
 		//Cubo para el primer auto: cuboAuto1
 		//Se realizó el cubo con 3dmax además de agregarle una textura. Inicialmente mide 40 por lado
 		//tmpCA1 = model = glm::translate(glm::mat4(1.0f), glm::vec3(120.0f, 0.0f, 30.0f));
@@ -529,6 +542,17 @@ int main()
 		model = glm::scale(model, glm::vec3(0.125f * escalaAuto1_JCA, 0.2f * escalaAuto1_JCA, 0.125f * escalaAuto1_JCA));//x = 5, y = 2, z = 5
 		staticShader.setMat4("model", model);
 		llantaAuto1.Draw(staticShader);
+
+
+
+
+		model = glm::translate(glm::mat4(1.0f), glm::vec3(-250.0f, 0.0f, -50.0f));
+		//model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(1.0f));
+		staticShader.setMat4("model", model);
+		Edificio1.Draw(staticShader);
+
+		//*************************************************************************************************************
 
 
 
