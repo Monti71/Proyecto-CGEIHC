@@ -88,6 +88,9 @@ float	incX = 0.0f,
 //*************************************************************************************************************
 //*************       MODIFICACIONES DE JESS      ****************************
 float   escalaAuto1_JCA = 0.3f;
+float	escalaEdificio1_JCA = 3.0f;
+float	escalaEdificio2_JCA = 2.5f;
+float	escalaEntrada_JCA = 1.0f;
 
 //*************************************************************************************************************
 
@@ -293,6 +296,7 @@ int main()
 	Model llantaAuto1("resources/objects/CuboAuto1/llantaAuto1.obj");
 
 	Model Edificio1("resources/objects/Edificio1/Edificio1.obj");
+	Model Edificio2("resources/objects/Edificio2/Edificio2.obj");
 	//*************************************************************************************************************
 
 	ModelAnim animacionPersonaje("resources/objects/Personaje1/PersonajeBrazo.dae");
@@ -428,6 +432,11 @@ int main()
 
 		//*************************************************************************************************************
 		//*************       MODIFICACIONES DE JESS      ****************************
+		// 
+		//Estas líneas son para habilitar la transparencia de las texturas
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 		//Cubo para el primer auto: cuboAuto1
 		//Se realizó el cubo con 3dmax además de agregarle una textura. Inicialmente mide 40 por lado
 		//tmpCA1 = model = glm::translate(glm::mat4(1.0f), glm::vec3(120.0f, 0.0f, 30.0f));
@@ -545,14 +554,19 @@ int main()
 
 
 
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 		model = glm::translate(glm::mat4(1.0f), glm::vec3(-250.0f, 0.0f, -50.0f));
 		//model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(1.0f));
+		model = glm::scale(model, glm::vec3(escalaEdificio1_JCA));
 		staticShader.setMat4("model", model);
 		Edificio1.Draw(staticShader);
-		glEnable(GL_BLEND);
+		//glEnable(GL_BLEND);
+
+		model = glm::translate(glm::mat4(1.0f), glm::vec3(-250.0f, 0.0f, 200.0f));
+		//model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(escalaEdificio2_JCA));
+		staticShader.setMat4("model", model);
+		Edificio2.Draw(staticShader);
 
 		//*************************************************************************************************************
 
