@@ -45,7 +45,7 @@ void getResolution(void);
 
 // camera
 Camera camera(glm::vec3(0.0f, 20.0f, 120.0f));
-float MovementSpeed = 0.1f;
+float MovementSpeed = 0.4f;
 float lastX = SCR_WIDTH / 2.0f;
 float lastY = SCR_HEIGHT / 2.0f;
 bool firstMouse = true;
@@ -90,7 +90,9 @@ float	incX = 0.0f,
 float   escalaAuto1_JCA = 0.3f;
 float	escalaEdificio1_JCA = 3.0f;
 float	escalaEdificio2_JCA = 2.5f;
-float	escalaEntrada_JCA = 1.0f;
+float	escalaEntrada_JCA = 0.1f;// Escala	 y			Escala			 x
+								//  0.8		433			0.1				-96
+								//  0.1		 ?			nueva escala	 ?
 
 //*************************************************************************************************************
 
@@ -297,6 +299,7 @@ int main()
 
 	Model Edificio1("resources/objects/Edificio1/Edificio1.obj");
 	Model Edificio2("resources/objects/Edificio2/Edificio2.obj");
+	Model Entrada("resources/objects/Entrada/Entrada.obj");
 	//*************************************************************************************************************
 
 	ModelAnim animacionPersonaje("resources/objects/Personaje1/PersonajeBrazo.dae");
@@ -554,7 +557,7 @@ int main()
 
 
 
-
+		
 		model = glm::translate(glm::mat4(1.0f), glm::vec3(-250.0f, 0.0f, -50.0f));
 		//model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(escalaEdificio1_JCA));
@@ -567,17 +570,25 @@ int main()
 		model = glm::scale(model, glm::vec3(escalaEdificio2_JCA));
 		staticShader.setMat4("model", model);
 		Edificio2.Draw(staticShader);
+		
+
+		model = glm::translate(glm::mat4(1.0f), glm::vec3(-96.0f, 54.125f, 350.0f));
+		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(escalaEntrada_JCA));
+		staticShader.setMat4("model", model);
+		Entrada.Draw(staticShader);
 
 		//*************************************************************************************************************
 
 
 
 
-
+		/*
 		model = glm::translate(glm::mat4(1.0f), glm::vec3(250.0f, 0.0f, -10.0f));
 		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 		staticShader.setMat4("model", model);
 		casaDoll.Draw(staticShader);
+		*/
 
 		model = glm::mat4(1.0f);
 		model = glm::translate(model, glm::vec3(0.0f, -1.75f, 0.0f));
@@ -585,10 +596,12 @@ int main()
 		staticShader.setMat4("model", model);
 		piso.Draw(staticShader);
 
+		/*
 		model = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -70.0f));
 		model = glm::scale(model, glm::vec3(5.0f));
 		staticShader.setMat4("model", model);
 		casaVieja.Draw(staticShader);
+		*/
 
 		// -------------------------------------------------------------------------------------------------------------------------
 		// Carro
