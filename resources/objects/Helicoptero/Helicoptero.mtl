@@ -1,0 +1,59 @@
+# 3ds Max Wavefront OBJ Exporter v0.99 - (c)2007 guruware
+# File Created: 15.05.2022 12:22:44
+
+newmtl Material__27
+	Ns 18.0000
+	Ni 1.0000
+	d 0.1700
+	Tr 0.8300
+	Tf 0.1700 0.1700 0.1700 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0000 0.0000 0.0000
+	Ks 0.7200 0.7200 0.7200
+	Ke 0.0000 0.0000 0.0000
+	map_Ka Vidrio.jpg
+	map_Kd Vidrio.jpg
+	map_refl Vidrio.jpg
+
+newmtl Material__26
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.5880 0.5880 0.5880
+	Kd 0.5880 0.5880 0.5880
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka black-g6ab4724d5_640.png
+	map_Kd black-g6ab4724d5_640.png
+
+newmtl Material__25
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.5880 0.5880 0.5880
+	Kd 0.5880 0.5880 0.5880
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka metal.jpg
+	map_Kd metal.jpg
+
+newmtl Iron___Polished
+	Kd 0.3333 0.3333 0.3333
+	Ks 0.2000 0.2000 0.2000
+	Tr 0.0000
+	d 1.0000
+	Tf 0.0000 0.0000 0.0000
+	Pr 0.5678
+	Pm 0.0000
+	Pc 0.0000
+	Pcr 0.0000
+	Ni 1.5200
+	Ke 0.0000 0.0000 0.0000
+	illum 2
