@@ -1,0 +1,44 @@
+# 3ds Max Wavefront OBJ Exporter v0.94b - (c)2007 guruware
+# File Created: 25.08.2016 21:40:10
+
+newmtl 8d81f52a_dds
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 1.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.7000 0.7000 0.7000
+	Ks 0.1000 0.1000 0.1000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka C:\Users\Administrator\Documents\3DReaperDX\Textures\8d81f52a.dds
+	map_Kd C:\Users\Administrator\Documents\3DReaperDX\Textures\8d81f52a.dds
+
+newmtl c22e7f26_dds
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 1.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.7000 0.7000 0.7000
+	Ks 0.1000 0.1000 0.1000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka C:\Users\Administrator\Documents\3DReaperDX\Textures\c22e7f26.dds
+	map_Kd C:\Users\Administrator\Documents\3DReaperDX\Textures\c22e7f26.dds
+
+newmtl 68ed64e7_dds
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 1.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.7000 0.7000 0.7000
+	Ks 0.1000 0.1000 0.1000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka C:\Users\Administrator\Documents\3DReaperDX\Textures\68ed64e7.dds
+	map_Kd C:\Users\Administrator\Documents\3DReaperDX\Textures\68ed64e7.dds
