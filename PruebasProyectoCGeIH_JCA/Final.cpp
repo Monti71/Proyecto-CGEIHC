@@ -44,7 +44,7 @@ GLFWmonitor *monitors;
 void getResolution(void);
 
 // camera
-Camera camera(glm::vec3(0.0f, 20.0f, 120.0f));
+Camera camera(glm::vec3(350.0f, 20.0f, 120.0f));
 float MovementSpeed = 0.4f;
 float lastX = SCR_WIDTH / 2.0f;
 float lastY = SCR_HEIGHT / 2.0f;
@@ -93,6 +93,33 @@ float	escalaEdificio2_JCA = 2.5f;
 float	escalaEntrada_JCA = 0.1f;// Escala	 y			Escala			 x
 								//  0.8		433			0.1				-96
 								//  0.1		 ?			nueva escala	 ?
+float	escalaEdificio4_JCA = 3.0f;
+
+//*******************Para Auto 2**********************************
+float	escalaAuto2_JCA = 0.5f;
+float	escalaLlantaAuto2_JCA = 1.0f;
+
+//Posición inicial del auto 2
+float	posAuto2_x = 0.0f,
+		posAuto2_y = 0.0f,
+		posAuto2_z = 250.0f;
+
+//Para la translación del auto 2
+float	movAuto2_x = 0.0f,
+		movAuto2_y = 0.0f,
+		movAuto2_z = 0.0f,
+		orientaAuto2 = 90.0f,    //Orientación que de modifica durante el recorrido
+		orientaInicial2 = 90.0f, //Orientación inicial del auto 2
+		orienta2 = 90.0f;        //Orientación de llantas
+
+//Recorido del auto 2
+bool	recorrido0_A2 = true,
+		recorrido0_giro_A2 = false,
+		recorrido1_A2 = false,
+		recorrido1_giro_A2 = false,
+		recorrido2_A2 = false,
+		recorrido3_A2 = false,
+		recorrido4_A2 = false;
 
 //*************************************************************************************************************
 
@@ -190,7 +217,41 @@ void animate(void)
 	//Vehículo
 	if (animacion)
 	{
-		movAuto_z += 3.0f;
+		if (recorrido0_A2) {
+			movAuto2_z -= 1.0f;
+			orienta2 += 3.0f;
+			orientaAuto2 = 90.0f;
+			if (movAuto2_z <= -200.0f) {
+				recorrido0_A2 = false;
+				recorrido1_A2 = true;
+			}
+		}
+		if (recorrido1_A2) {
+			movAuto2_x += 1.0f;//translacion auto completo
+			orienta2 += 3.0f;//giro de llantas
+			orientaAuto2 = 0.0f;
+			if (movAuto2_x >= 200.0f) {
+				recorrido1_A2 = false;
+				recorrido2_A2 = true;
+			}
+		}
+		if (recorrido2_A2) {
+			movAuto2_z -= 1.0f;//translacion auto completo
+			orienta2 += 3.0f;//giro de llantas
+			orientaAuto2 = 90.0f;
+			if (movAuto2_z <= -300.0f) {
+				recorrido2_A2 = false;
+				recorrido3_A2 = true;
+			}
+		}
+		if (recorrido3_A2) {
+			movAuto2_z -= 0.1f;//translacion auto completo
+			orienta2 += 0.5f;//giro de llantas
+			orientaAuto2 = 90.0f;
+			if (movAuto2_z <= -350.0f) {
+				recorrido3_A2 = false;
+			}
+		}
 	}
 }
 
@@ -300,6 +361,9 @@ int main()
 	Model Edificio1("resources/objects/Edificio1/Edificio1.obj");
 	Model Edificio2("resources/objects/Edificio2/Edificio2.obj");
 	Model Entrada("resources/objects/Entrada/Entrada.obj");
+	Model Edificio4("resources/objects/Edificio4/Edificio4_JCA.obj");
+	Model Auto2JCA("resources/objects/Auto2JCA/Auto2_JCA.obj");
+	Model LlantaAuto2JCA("resources/objects/Auto2JCA/LlantaAuto2_JCA_r.obj");
 	//*************************************************************************************************************
 
 	ModelAnim animacionPersonaje("resources/objects/Personaje1/PersonajeBrazo.dae");
@@ -557,7 +621,7 @@ int main()
 
 
 
-		
+		/*
 		model = glm::translate(glm::mat4(1.0f), glm::vec3(-250.0f, 0.0f, -50.0f));
 		//model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(escalaEdificio1_JCA));
@@ -578,6 +642,49 @@ int main()
 		staticShader.setMat4("model", model);
 		Entrada.Draw(staticShader);
 
+		model = glm::translate(glm::mat4(1.0f), glm::vec3(300.0f, 0.0f, 200.0f));
+		//model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(escalaEdificio4_JCA));
+		staticShader.setMat4("model", model);
+		Edificio4.Draw(staticShader);
+
+		*/
+
+		
+		//Auto 2
+		model = glm::translate(glm::mat4(1.0f), glm::vec3(posAuto2_x+movAuto2_x, posAuto2_y+movAuto2_y, posAuto2_z+movAuto2_z));
+		tmpCA1 = model = glm::rotate(model, glm::radians(orientaAuto2+orientaInicial2), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(escalaAuto2_JCA));
+		staticShader.setMat4("model", model);
+		Auto2JCA.Draw(staticShader);
+
+		//Llanta 1 para Auto 2
+		model = glm::translate(tmpCA1, glm::vec3(9.0f, 3.0f, 20.5f));
+		model = glm::rotate(model, glm::radians(orienta2), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(escalaLlantaAuto2_JCA));
+		staticShader.setMat4("model", model);
+		LlantaAuto2JCA.Draw(staticShader);
+
+		//Llanta 2 para Auto 2 (delantera derecha)
+		model = glm::translate(tmpCA1, glm::vec3(-9.0f, 3.0f, 21.0f));
+		model = glm::rotate(model, glm::radians(orienta2), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(escalaLlantaAuto2_JCA));
+		staticShader.setMat4("model", model);
+		LlantaAuto2JCA.Draw(staticShader);
+
+		//Llanta 3 para Auto 2
+		model = glm::translate(tmpCA1, glm::vec3(9.0f, 3.0f, -15.0f));
+		model = glm::rotate(model, glm::radians(orienta2), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(escalaLlantaAuto2_JCA));
+		staticShader.setMat4("model", model);
+		LlantaAuto2JCA.Draw(staticShader);
+
+		//Llanta 4 para Auto 2 (trasera derecha)
+		model = glm::translate(tmpCA1, glm::vec3(-9.5f, 3.0f, -15.0f));
+		model = glm::rotate(model, glm::radians(orienta2), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(escalaLlantaAuto2_JCA));
+		staticShader.setMat4("model", model);
+		LlantaAuto2JCA.Draw(staticShader);
 		//*************************************************************************************************************
 
 
@@ -764,7 +871,12 @@ void my_input(GLFWwindow *window, int key, int scancode, int action, int mode)
 
 	//Car animation
 	if (key == GLFW_KEY_SPACE && action == GLFW_PRESS)
+	{
+		movAuto2_x = 0.0f;
+		movAuto2_y = 0.0f;
+		movAuto2_z = 0.0f;
 		animacion ^= true;
+	}
 
 	//To play KeyFrame animation 
 	if (key == GLFW_KEY_P && action == GLFW_PRESS)
