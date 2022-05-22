@@ -44,7 +44,7 @@ GLFWmonitor *monitors;
 void getResolution(void);
 
 // camera
-Camera camera(glm::vec3(350.0f, 20.0f, 120.0f));
+Camera camera(glm::vec3(350.0f, 120.0f, 120.0f));
 float MovementSpeed = 0.4f;
 float lastX = SCR_WIDTH / 2.0f;
 float lastY = SCR_HEIGHT / 2.0f;
@@ -221,8 +221,18 @@ void animate(void)
 			movAuto2_z -= 1.0f;
 			orienta2 += 3.0f;
 			orientaAuto2 = 90.0f;
-			if (movAuto2_z <= -200.0f) {
+			if (movAuto2_z <= -190.0f) {
 				recorrido0_A2 = false;
+				recorrido0_giro_A2 = true;
+			}
+		}
+		if (recorrido0_giro_A2) {
+			movAuto2_z -= 0.6f;//2.0f    //m=-2
+			movAuto2_x += 0.3f;//1.0f
+			orienta2 += 3.0f;
+			orientaAuto2 = 90.0f - 63.43f;
+			if (movAuto2_z <= -200.0f && movAuto2_x >= 10.0f) {
+				recorrido0_giro_A2 = false;
 				recorrido1_A2 = true;
 			}
 		}
@@ -230,8 +240,18 @@ void animate(void)
 			movAuto2_x += 1.0f;//translacion auto completo
 			orienta2 += 3.0f;//giro de llantas
 			orientaAuto2 = 0.0f;
-			if (movAuto2_x >= 200.0f) {
+			if (movAuto2_x >= 190.0f) {
 				recorrido1_A2 = false;
+				recorrido1_giro_A2 = true;
+			}
+		}
+		if (recorrido1_giro_A2) {
+			movAuto2_z -= 0.6f;//2.0f    //m=-2
+			movAuto2_x += 0.3f;//1.0f
+			orienta2 += 3.0f;
+			orientaAuto2 = 90.0f - 63.43f;
+			if (movAuto2_z <= -210.0f && movAuto2_x >= 200.0f) {
+				recorrido1_giro_A2 = false;
 				recorrido2_A2 = true;
 			}
 		}
@@ -245,11 +265,23 @@ void animate(void)
 			}
 		}
 		if (recorrido3_A2) {
-			movAuto2_z -= 0.1f;//translacion auto completo
+			movAuto2_z -= 0.1f;//translacion auto completo ********* 0.1f
 			orienta2 += 0.5f;//giro de llantas
 			orientaAuto2 = 90.0f;
 			if (movAuto2_z <= -350.0f) {
 				recorrido3_A2 = false;
+				recorrido4_A2 = true;
+			}
+		}
+		if (recorrido4_A2) {
+			movAuto2_x += 0.5f;
+			movAuto2_z = ( pow(movAuto2_x - 300.0f, 2) / (45) ) - 590.0;//-130.0f
+			orienta2 += 0.5f;//giro de llantas
+			if (orientaAuto2 >= -90.0f) {
+				orientaAuto2 -= 0.5f;
+			}
+			if (movAuto2_x >= 380.0f) {
+				recorrido4_A2 = false;
 			}
 		}
 	}
@@ -507,7 +539,7 @@ int main()
 		//Cubo para el primer auto: cuboAuto1
 		//Se realizó el cubo con 3dmax además de agregarle una textura. Inicialmente mide 40 por lado
 		//tmpCA1 = model = glm::translate(glm::mat4(1.0f), glm::vec3(120.0f, 0.0f, 30.0f));
-		tmpCA1 = model = glm::translate(glm::mat4(1.0f), glm::vec3(120.0f, -1.0f, 30.0f));
+		tmpCA1 = model = glm::translate(glm::mat4(1.0f), glm::vec3(200.0f, -1.0f, -100.0f));//120.0f, -1.0f, 30.0f
 		model = glm::translate(tmpCA1, glm::vec3(0.0f * escalaAuto1_JCA, 2.0f * escalaAuto1_JCA, 0.0f * escalaAuto1_JCA));
 		model = glm::scale(model, glm::vec3(0.55f * escalaAuto1_JCA, 0.25f * escalaAuto1_JCA, 0.3f * escalaAuto1_JCA));//Con esto medirá x = 22, y = 10, z = 12
 		staticShader.setMat4("model", model);
@@ -872,10 +904,16 @@ void my_input(GLFWwindow *window, int key, int scancode, int action, int mode)
 	//Car animation
 	if (key == GLFW_KEY_SPACE && action == GLFW_PRESS)
 	{
-		movAuto2_x = 0.0f;
-		movAuto2_y = 0.0f;
-		movAuto2_z = 0.0f;
 		animacion ^= true;
+		recorrido0_A2 = true,
+		recorrido0_giro_A2 = false,
+		recorrido1_A2 = false,
+		recorrido1_giro_A2 = false,
+		recorrido2_A2 = false,
+		recorrido3_A2 = false,
+		recorrido4_A2 = false;
+		movAuto2_z = 0.0f;
+		movAuto2_x = 0.0f;
 	}
 
 	//To play KeyFrame animation 
