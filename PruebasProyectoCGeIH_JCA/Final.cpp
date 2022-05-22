@@ -44,7 +44,7 @@ GLFWmonitor *monitors;
 void getResolution(void);
 
 // camera
-Camera camera(glm::vec3(350.0f, 120.0f, 120.0f));
+Camera camera(glm::vec3(0.0f, 20.0f, 50.0f));
 float MovementSpeed = 0.4f;
 float lastX = SCR_WIDTH / 2.0f;
 float lastY = SCR_HEIGHT / 2.0f;
@@ -66,7 +66,7 @@ glm::vec3 lightDirection(0.0f, -1.0f, -1.0f);
 float	movAuto_x = 0.0f,
 		movAuto_z = 0.0f,
 		orienta = 0.0f;
-bool	animacion = false,
+bool	animacion = false,//La utilizo para animación del auto 2
 		recorrido1 = true,
 		recorrido2 = false,
 		recorrido3 = false,
@@ -95,12 +95,13 @@ float	escalaEntrada_JCA = 0.1f;// Escala	 y			Escala			 x
 								//  0.1		 ?			nueva escala	 ?
 float	escalaEdificio4_JCA = 3.0f;
 
+/*
 //*******************Para Auto 2**********************************
 float	escalaAuto2_JCA = 0.5f;
 float	escalaLlantaAuto2_JCA = 1.0f;
 
 //Posición inicial del auto 2
-float	posAuto2_x = 0.0f,
+float	posAuto2_x = -200.0f,
 		posAuto2_y = 0.0f,
 		posAuto2_z = 250.0f;
 
@@ -120,6 +121,26 @@ bool	recorrido0_A2 = true,
 		recorrido2_A2 = false,
 		recorrido3_A2 = false,
 		recorrido4_A2 = false;
+*/
+//********************Para persona aterrada**********************
+bool	animacion2_JCA = false;//La utilizo para animación de la persona asustada
+
+float	escalaPersonaAterrada_JCA = 0.1f;
+float	orientaInicialPersonaAterrada_JCA = 0.0f;
+float	posPersonaAterrada_JCA_x = 250.0f,
+		posPersonaAterrada_JCA_y = 0.0f,
+		posPersonaAterrada_JCA_z = 0.0f;
+
+float	movPersonaAterrada_JCA_x = 0.0f,
+		movPersonaAterrada_JCA_y = 0.0f,
+		movPersonaAterrada_JCA_z = 0.0f,
+		orientaPersonaAterrada_JCA = 0.0f;
+
+float	miVariable1 = 0.0f;
+
+bool	recorrido0_PA_JCA = true,
+		recorrido1_PA_JCA = false,
+		recorrido2_PA_JCA = false;
 
 //*************************************************************************************************************
 
@@ -214,6 +235,7 @@ void animate(void)
 		}
 	}
 
+	/*
 	//Vehículo
 	if (animacion)
 	{
@@ -284,6 +306,58 @@ void animate(void)
 				recorrido4_A2 = false;
 			}
 		}
+	}*/
+
+	if (animacion2_JCA) {
+		if (recorrido0_PA_JCA) {
+			movPersonaAterrada_JCA_x += 0.5f;
+			orientaPersonaAterrada_JCA = 90.0f;
+			if (movPersonaAterrada_JCA_x >= 50.0f) {
+				recorrido0_PA_JCA = false;
+				recorrido1_PA_JCA = true;
+				miVariable1 = 0.0f;
+				//movPersonaAterrada_JCA_x = 0.0f;
+			}
+		}
+		if (recorrido1_PA_JCA) {
+			movPersonaAterrada_JCA_x = 50.0f * cos(miVariable1);//sqrt( 1 - pow(movPersonaAterrada_JCA_z,2) );
+			movPersonaAterrada_JCA_z = 50.0f * sin(miVariable1);
+			miVariable1 += 0.02f;
+			//orientaPersonaAterrada_JCA = 0.0f - (miVariable1 * 30.0);
+			
+			if (miVariable1 <= 0.5f) {
+				orientaPersonaAterrada_JCA = 0.0f;
+			}
+			if (miVariable1 > 0.5f && miVariable1 <= 2.0f) {
+				orientaPersonaAterrada_JCA = -90.0f;
+			}
+			if (miVariable1 > 2.0f && miVariable1 <= 4.0f) {
+				orientaPersonaAterrada_JCA = -180.0f;
+			}
+			if (miVariable1 > 4.0f && miVariable1 <= 5.5f) {
+				orientaPersonaAterrada_JCA = -270.0f;
+			}
+			if (miVariable1 > 5.5f && miVariable1 <= 7.0f) {
+				orientaPersonaAterrada_JCA = 0.0f;
+			}
+			
+			if (miVariable1 > 7.0f) {
+				recorrido0_PA_JCA = true;
+				recorrido1_PA_JCA = false;
+				movPersonaAterrada_JCA_x = 0.0f;
+				movPersonaAterrada_JCA_z = 0.0f;
+			}
+		}
+		
+		/*
+		movAuto2_z -= 1.0f;
+		orienta2 += 3.0f;
+		orientaAuto2 = 90.0f;
+		if (movAuto2_z <= -190.0f) {
+			recorrido0_A2 = false;
+			recorrido0_giro_A2 = true;
+		}
+		*/
 	}
 }
 
@@ -396,6 +470,12 @@ int main()
 	Model Edificio4("resources/objects/Edificio4/Edificio4_JCA.obj");
 	Model Auto2JCA("resources/objects/Auto2JCA/Auto2_JCA.obj");
 	Model LlantaAuto2JCA("resources/objects/Auto2JCA/LlantaAuto2_JCA_r.obj");
+
+	ModelAnim PersonaAterradaJCA("resources/objects/PersonaAterrada/Terrified.dae");
+	PersonaAterradaJCA.initShaders(animShader.ID);
+
+	ModelAnim PersonaCorriendoJCA("resources/objects/PersonaCorriendo/GoofyRunning.dae");
+	PersonaCorriendoJCA.initShaders(animShader.ID);
 	//*************************************************************************************************************
 
 	ModelAnim animacionPersonaje("resources/objects/Personaje1/PersonajeBrazo.dae");
@@ -514,6 +594,29 @@ int main()
 		animShader.setMat4("model", model);
 		//ninja.Draw(animShader);
 
+
+
+		//*************************************************************************************************************
+		//*************       MODIFICACIONES DE JESS      ****************************
+		// 
+
+		model = glm::translate(glm::mat4(1.0f), glm::vec3(posPersonaAterrada_JCA_x + movPersonaAterrada_JCA_x, posPersonaAterrada_JCA_y + movPersonaAterrada_JCA_y, posPersonaAterrada_JCA_z + movPersonaAterrada_JCA_z)); // translate it down so it's at the center of the scene
+		model = glm::scale(model, glm::vec3(escalaPersonaAterrada_JCA));	// it's a bit too big for our scene, so scale it down
+		model = glm::rotate(model, glm::radians(orientaInicialPersonaAterrada_JCA + orientaPersonaAterrada_JCA), glm::vec3(0.0f, 1.0f, 0.0f));
+		animShader.setMat4("model", model);
+		if (animacion2_JCA) {
+			//Persona corriendo
+			PersonaCorriendoJCA.Draw(animShader);
+		}
+		else {
+			//Persona aterrada
+			PersonaAterradaJCA.Draw(animShader);
+		}
+		
+		//*************************************************************************************************************
+
+
+
 		// -------------------------------------------------------------------------------------------------------------------------
 		// Escenario
 		// -------------------------------------------------------------------------------------------------------------------------
@@ -550,7 +653,8 @@ int main()
 		staticShader.setMat4("model", model);
 		cuboAuto1.Draw(staticShader);
 
-		/*//Intento de poner parte de enfrente del coche más completa
+		/*
+		//Intento de poner parte de enfrente del coche más completa
 		model = glm::translate(tmpCA1, glm::vec3(-10.0f, 0.0f, 5.0f));
 		model = glm::rotate(model, glm::radians(-18.0f), glm::vec3(0.0f, 0.0f, 1.0f));
 		model = glm::scale(model, glm::vec3(0.0125f, 0.3f, 0.05f));//x = 0.5, y = 10, z = 0.5
@@ -650,7 +754,7 @@ int main()
 		model = glm::scale(model, glm::vec3(0.125f * escalaAuto1_JCA, 0.2f * escalaAuto1_JCA, 0.125f * escalaAuto1_JCA));//x = 5, y = 2, z = 5
 		staticShader.setMat4("model", model);
 		llantaAuto1.Draw(staticShader);
-
+		
 
 
 		/*
@@ -683,7 +787,10 @@ int main()
 		*/
 
 		
+		/*
 		//Auto 2
+		//Cuando se modifica la orientación inicial del auto, se debe modificar posAuto2_x-movAuto2_z y posAuto2_z+movAuto2_x del
+		//siguiente vector. Se modifica el signo y se intercambian los movAuto2_(x ó z)
 		model = glm::translate(glm::mat4(1.0f), glm::vec3(posAuto2_x+movAuto2_x, posAuto2_y+movAuto2_y, posAuto2_z+movAuto2_z));
 		tmpCA1 = model = glm::rotate(model, glm::radians(orientaAuto2+orientaInicial2), glm::vec3(0.0f, 1.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(escalaAuto2_JCA));
@@ -717,8 +824,12 @@ int main()
 		model = glm::scale(model, glm::vec3(escalaLlantaAuto2_JCA));
 		staticShader.setMat4("model", model);
 		LlantaAuto2JCA.Draw(staticShader);
-		//*************************************************************************************************************
 
+
+		*/
+		
+		//*************************************************************************************************************
+		
 
 
 
@@ -750,29 +861,29 @@ int main()
 		tmp = model = glm::rotate(model, glm::radians(orienta), glm::vec3(0.0f, 1.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
 		staticShader.setMat4("model", model);
-		carro.Draw(staticShader);
+		//carro.Draw(staticShader);
 
 		model = glm::translate(tmp, glm::vec3(8.5f, 2.5f, 12.9f));
 		model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
 		staticShader.setMat4("model", model);
-		llanta.Draw(staticShader);	//Izq delantera
+		//llanta.Draw(staticShader);	//Izq delantera
 
 		model = glm::translate(tmp, glm::vec3(-8.5f, 2.5f, 12.9f));
 		model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
 		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 		staticShader.setMat4("model", model);
-		llanta.Draw(staticShader);	//Der delantera
+		//llanta.Draw(staticShader);	//Der delantera
 
 		model = glm::translate(tmp, glm::vec3(-8.5f, 2.5f, -14.5f));
 		model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
 		model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 		staticShader.setMat4("model", model);
-		llanta.Draw(staticShader);	//Der trasera
+		//llanta.Draw(staticShader);	//Der trasera
 
 		model = glm::translate(tmp, glm::vec3(8.5f, 2.5f, -14.5f));
 		model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
 		staticShader.setMat4("model", model);
-		llanta.Draw(staticShader);	//Izq trase
+		//llanta.Draw(staticShader);	//Izq trase
 		// -------------------------------------------------------------------------------------------------------------------------
 		// Personaje
 		// -------------------------------------------------------------------------------------------------------------------------
@@ -833,8 +944,8 @@ int main()
 		model = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -70.0f));
 		model = glm::scale(model, glm::vec3(1.0f));
 		staticShader.setMat4("model", model);
-		cubo.Draw(staticShader);
-		glEnable(GL_BLEND);
+		//cubo.Draw(staticShader);
+		//glEnable(GL_BLEND);
 		// -------------------------------------------------------------------------------------------------------------------------
 		// Termina Escenario
 		// -------------------------------------------------------------------------------------------------------------------------
@@ -904,6 +1015,8 @@ void my_input(GLFWwindow *window, int key, int scancode, int action, int mode)
 	//Car animation
 	if (key == GLFW_KEY_SPACE && action == GLFW_PRESS)
 	{
+		/*
+		//Animación auto 2
 		animacion ^= true;
 		recorrido0_A2 = true,
 		recorrido0_giro_A2 = false,
@@ -914,6 +1027,15 @@ void my_input(GLFWwindow *window, int key, int scancode, int action, int mode)
 		recorrido4_A2 = false;
 		movAuto2_z = 0.0f;
 		movAuto2_x = 0.0f;
+		*/
+
+		//Animación persona corriendo
+		animacion2_JCA ^= true;
+		recorrido0_PA_JCA = true;
+		recorrido1_PA_JCA = false;
+		movPersonaAterrada_JCA_x = 0.0f;
+		movPersonaAterrada_JCA_z = 0.0f;
+		miVariable1 = 0.0f;
 	}
 
 	//To play KeyFrame animation 
