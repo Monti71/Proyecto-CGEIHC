@@ -327,10 +327,14 @@ void animate(void)
 			orientaPersonaAterrada_JCA = 90.0f;
 			orientaAla1Quetzal_JCA_y -= 0.2f;
 			orientaAla2Quetzal_JCA_y += 0.2f;
+			orientaCentroQuetzal_JCA_x -= 0.1f;
 			if (movPersonaAterrada_JCA_x >= 50.0f) {
 				recorrido0_PA_JCA = false;
 				recorrido1_PA_JCA = true;
 				miVariable1_JCA = 0.0f;
+				orientaAla1Quetzal_JCA_y = 0.0f;
+				orientaAla2Quetzal_JCA_y = 0.0f;
+				orientaCentroQuetzal_JCA_x = 0.0f;
 				//movPersonaAterrada_JCA_x = 0.0f;
 			}
 		}
@@ -345,31 +349,31 @@ void animate(void)
 				orientaPersonaAterrada_JCA = 0.0f;
 				orientaAla1Quetzal_JCA_y += 0.2f;
 				orientaAla2Quetzal_JCA_y -= 0.2f;
-				orientaCentroQuetzal_JCA_x -= 0.1f;
+				orientaCentroQuetzal_JCA_x += 0.1f;
 			}
 			if (miVariable1_JCA > 0.5f && miVariable1_JCA <= 2.0f) {
 				orientaPersonaAterrada_JCA = -90.0f;
 				orientaAla1Quetzal_JCA_y -= 0.2f;
 				orientaAla2Quetzal_JCA_y += 0.2f;
-				orientaCentroQuetzal_JCA_x += 0.1f;
+				orientaCentroQuetzal_JCA_x -= 0.1f;
 			}
 			if (miVariable1_JCA > 2.0f && miVariable1_JCA <= 4.0f) {
 				orientaPersonaAterrada_JCA = -180.0f;
 				orientaAla1Quetzal_JCA_y += 0.2f;
 				orientaAla2Quetzal_JCA_y -= 0.2f;
-				orientaCentroQuetzal_JCA_x -= 0.1f;
+				orientaCentroQuetzal_JCA_x += 0.1f;
 			}
 			if (miVariable1_JCA > 4.0f && miVariable1_JCA <= 5.2f) {
 				orientaPersonaAterrada_JCA = -270.0f;
 				orientaAla1Quetzal_JCA_y -= 0.2f;
 				orientaAla2Quetzal_JCA_y += 0.2f;
-				orientaCentroQuetzal_JCA_x += 0.1f;
+				orientaCentroQuetzal_JCA_x -= 0.1f;
 			}
 			if (miVariable1_JCA > 5.2f && miVariable1_JCA <= 7.0f) {
 				orientaPersonaAterrada_JCA = 0.0f;
 				orientaAla1Quetzal_JCA_y += 0.2f;
 				orientaAla2Quetzal_JCA_y -= 0.2f;
-				orientaCentroQuetzal_JCA_x -= 0.1f;
+				orientaCentroQuetzal_JCA_x += 0.1f;
 			}
 			
 			if (miVariable1_JCA > 7.0f) {
@@ -881,7 +885,7 @@ int main()
 		QuetzalAla1JCA.Draw(staticShader);
 
 		//Ala 2
-		model = glm::translate(tmpCA2, glm::vec3(-12.0f, 0.0f, 9.0f));
+		model = glm::translate(tmpCA2, glm::vec3(-11.0f, 0.0f, 9.0f));
 		model = glm::rotate(model, glm::radians(orientaCentroQuetzal_JCA_y + orientaAla2Quetzal_JCA_y), glm::vec3(0.0f, 1.0f, 0.0f));
 		model = glm::rotate(model, glm::radians(orientaCentroQuetzal_JCA_x), glm::vec3(1.0f, 0.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(escalaQuetzal_JCA));
@@ -1100,6 +1104,7 @@ void my_input(GLFWwindow *window, int key, int scancode, int action, int mode)
 		orientaAla1Quetzal_JCA_y = 0.0f;
 		orientaAla2Quetzal_JCA_y = 0.0f;
 		orientaCentroQuetzal_JCA_x = 0.0f;
+		orientaPersonaAterrada_JCA = 0.0f;
 		
 	}
 
