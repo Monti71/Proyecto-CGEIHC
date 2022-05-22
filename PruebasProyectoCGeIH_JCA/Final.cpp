@@ -44,7 +44,7 @@ GLFWmonitor *monitors;
 void getResolution(void);
 
 // camera
-Camera camera(glm::vec3(0.0f, 20.0f, 50.0f));
+Camera camera(glm::vec3(200.0f, 20.0f, 50.0f));
 float MovementSpeed = 0.4f;
 float lastX = SCR_WIDTH / 2.0f;
 float lastY = SCR_HEIGHT / 2.0f;
@@ -122,25 +122,36 @@ bool	recorrido0_A2 = true,
 		recorrido3_A2 = false,
 		recorrido4_A2 = false;
 */
+
 //********************Para persona aterrada**********************
 bool	animacion2_JCA = false;//La utilizo para animación de la persona asustada
 
 float	escalaPersonaAterrada_JCA = 0.1f;
 float	orientaInicialPersonaAterrada_JCA = 0.0f;
-float	posPersonaAterrada_JCA_x = 250.0f,
+float	posPersonaAterrada_JCA_x = 0.0f,
 		posPersonaAterrada_JCA_y = 0.0f,
-		posPersonaAterrada_JCA_z = 0.0f;
+		posPersonaAterrada_JCA_z = 100.0f;
 
 float	movPersonaAterrada_JCA_x = 0.0f,
 		movPersonaAterrada_JCA_y = 0.0f,
 		movPersonaAterrada_JCA_z = 0.0f,
 		orientaPersonaAterrada_JCA = 0.0f;
 
-float	miVariable1 = 0.0f;
+float	miVariable1_JCA = 0.0f;
 
 bool	recorrido0_PA_JCA = true,
 		recorrido1_PA_JCA = false,
 		recorrido2_PA_JCA = false;
+
+
+float	escalaQuetzal_JCA = 0.2f;
+float	orientaCentroQuetzal_JCA_x = 0.0f,
+		orientaCentroQuetzal_JCA_y = -90.0f,
+		orientaAla1Quetzal_JCA_y = 0.0f,
+		orientaAla2Quetzal_JCA_y = 0.0f;
+float	posQuetzal_JCA_x = posPersonaAterrada_JCA_x - 50.0f,
+		posQuetzal_JCA_y = 20.0f,
+		posQuetzal_JCA_z = posPersonaAterrada_JCA_z;
 
 //*************************************************************************************************************
 
@@ -308,57 +319,71 @@ void animate(void)
 		}
 	}*/
 
+	
+	//Persona corriendo
 	if (animacion2_JCA) {
 		if (recorrido0_PA_JCA) {
 			movPersonaAterrada_JCA_x += 0.5f;
 			orientaPersonaAterrada_JCA = 90.0f;
+			orientaAla1Quetzal_JCA_y -= 0.2f;
+			orientaAla2Quetzal_JCA_y += 0.2f;
 			if (movPersonaAterrada_JCA_x >= 50.0f) {
 				recorrido0_PA_JCA = false;
 				recorrido1_PA_JCA = true;
-				miVariable1 = 0.0f;
+				miVariable1_JCA = 0.0f;
 				//movPersonaAterrada_JCA_x = 0.0f;
 			}
 		}
 		if (recorrido1_PA_JCA) {
-			movPersonaAterrada_JCA_x = 50.0f * cos(miVariable1);//sqrt( 1 - pow(movPersonaAterrada_JCA_z,2) );
-			movPersonaAterrada_JCA_z = 50.0f * sin(miVariable1);
-			miVariable1 += 0.02f;
+
+			movPersonaAterrada_JCA_x = 50.0f * cos(miVariable1_JCA);//sqrt( 1 - pow(movPersonaAterrada_JCA_z,2) );
+			movPersonaAterrada_JCA_z = 50.0f * sin(miVariable1_JCA);
+			miVariable1_JCA += 0.02f;
 			//orientaPersonaAterrada_JCA = 0.0f - (miVariable1 * 30.0);
 			
-			if (miVariable1 <= 0.5f) {
+			if (miVariable1_JCA <= 0.5f) {
 				orientaPersonaAterrada_JCA = 0.0f;
+				orientaAla1Quetzal_JCA_y += 0.2f;
+				orientaAla2Quetzal_JCA_y -= 0.2f;
+				orientaCentroQuetzal_JCA_x -= 0.1f;
 			}
-			if (miVariable1 > 0.5f && miVariable1 <= 2.0f) {
+			if (miVariable1_JCA > 0.5f && miVariable1_JCA <= 2.0f) {
 				orientaPersonaAterrada_JCA = -90.0f;
+				orientaAla1Quetzal_JCA_y -= 0.2f;
+				orientaAla2Quetzal_JCA_y += 0.2f;
+				orientaCentroQuetzal_JCA_x += 0.1f;
 			}
-			if (miVariable1 > 2.0f && miVariable1 <= 4.0f) {
+			if (miVariable1_JCA > 2.0f && miVariable1_JCA <= 4.0f) {
 				orientaPersonaAterrada_JCA = -180.0f;
+				orientaAla1Quetzal_JCA_y += 0.2f;
+				orientaAla2Quetzal_JCA_y -= 0.2f;
+				orientaCentroQuetzal_JCA_x -= 0.1f;
 			}
-			if (miVariable1 > 4.0f && miVariable1 <= 5.5f) {
+			if (miVariable1_JCA > 4.0f && miVariable1_JCA <= 5.2f) {
 				orientaPersonaAterrada_JCA = -270.0f;
+				orientaAla1Quetzal_JCA_y -= 0.2f;
+				orientaAla2Quetzal_JCA_y += 0.2f;
+				orientaCentroQuetzal_JCA_x += 0.1f;
 			}
-			if (miVariable1 > 5.5f && miVariable1 <= 7.0f) {
+			if (miVariable1_JCA > 5.2f && miVariable1_JCA <= 7.0f) {
 				orientaPersonaAterrada_JCA = 0.0f;
+				orientaAla1Quetzal_JCA_y += 0.2f;
+				orientaAla2Quetzal_JCA_y -= 0.2f;
+				orientaCentroQuetzal_JCA_x -= 0.1f;
 			}
 			
-			if (miVariable1 > 7.0f) {
+			if (miVariable1_JCA > 7.0f) {
 				recorrido0_PA_JCA = true;
 				recorrido1_PA_JCA = false;
 				movPersonaAterrada_JCA_x = 0.0f;
 				movPersonaAterrada_JCA_z = 0.0f;
+				orientaAla1Quetzal_JCA_y = 0.0f;
+				orientaAla2Quetzal_JCA_y = 0.0f;
+				orientaCentroQuetzal_JCA_x = 0.0f;
 			}
 		}
-		
-		/*
-		movAuto2_z -= 1.0f;
-		orienta2 += 3.0f;
-		orientaAuto2 = 90.0f;
-		if (movAuto2_z <= -190.0f) {
-			recorrido0_A2 = false;
-			recorrido0_giro_A2 = true;
-		}
-		*/
 	}
+	
 }
 
 void getResolution()
@@ -471,6 +496,10 @@ int main()
 	Model Auto2JCA("resources/objects/Auto2JCA/Auto2_JCA.obj");
 	Model LlantaAuto2JCA("resources/objects/Auto2JCA/LlantaAuto2_JCA_r.obj");
 
+	Model QuetzalCentroJCA("resources/objects/Quetzal/QuetzalCentro.obj");
+	Model QuetzalAla1JCA("resources/objects/Quetzal/QuetzalAla1.obj");
+	Model QuetzalAla2JCA("resources/objects/Quetzal/QuetzalAla2.obj");
+
 	ModelAnim PersonaAterradaJCA("resources/objects/PersonaAterrada/Terrified.dae");
 	PersonaAterradaJCA.initShaders(animShader.ID);
 
@@ -550,6 +579,10 @@ int main()
 		glm::mat4 tmp = glm::mat4(1.0f);
 		glm::mat4 tmpCA1 = glm::mat4(1.0f);//Temporal para cubo auto 1
 
+		/*****************MODIFICACIONES DE JESS*******************************************************/
+		glm::mat4 tmpCA2 = glm::mat4(1.0f);//Temporal para quetzal
+		/**********************************************************************************************/
+
 		// view/projection transformations
 		glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 10000.0f);
 		glm::mat4 view = camera.GetViewMatrix();
@@ -598,8 +631,9 @@ int main()
 
 		//*************************************************************************************************************
 		//*************       MODIFICACIONES DE JESS      ****************************
-		// 
-
+		//
+		
+		//Animación para persona que se asusta y corre
 		model = glm::translate(glm::mat4(1.0f), glm::vec3(posPersonaAterrada_JCA_x + movPersonaAterrada_JCA_x, posPersonaAterrada_JCA_y + movPersonaAterrada_JCA_y, posPersonaAterrada_JCA_z + movPersonaAterrada_JCA_z)); // translate it down so it's at the center of the scene
 		model = glm::scale(model, glm::vec3(escalaPersonaAterrada_JCA));	// it's a bit too big for our scene, so scale it down
 		model = glm::rotate(model, glm::radians(orientaInicialPersonaAterrada_JCA + orientaPersonaAterrada_JCA), glm::vec3(0.0f, 1.0f, 0.0f));
@@ -612,6 +646,7 @@ int main()
 			//Persona aterrada
 			PersonaAterradaJCA.Draw(animShader);
 		}
+		
 		
 		//*************************************************************************************************************
 
@@ -827,6 +862,31 @@ int main()
 
 
 		*/
+
+		//Quetzal
+		//Centro
+		tmpCA2 = model = glm::translate(glm::mat4(1.0f), glm::vec3(posQuetzal_JCA_x, posQuetzal_JCA_y, posQuetzal_JCA_z));
+		model = glm::rotate(tmpCA2, glm::radians(orientaCentroQuetzal_JCA_y), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(orientaCentroQuetzal_JCA_x), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(escalaQuetzal_JCA));
+		staticShader.setMat4("model", model);
+		QuetzalCentroJCA.Draw(staticShader);
+		
+		//Ala 1
+		model = glm::translate(tmpCA2, glm::vec3(-11.0f, 0.0f, -3.0f));
+		model = glm::rotate(model, glm::radians(orientaCentroQuetzal_JCA_y + orientaAla1Quetzal_JCA_y), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(orientaCentroQuetzal_JCA_x), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(escalaQuetzal_JCA));
+		staticShader.setMat4("model", model);
+		QuetzalAla1JCA.Draw(staticShader);
+
+		//Ala 2
+		model = glm::translate(tmpCA2, glm::vec3(-12.0f, 0.0f, 9.0f));
+		model = glm::rotate(model, glm::radians(orientaCentroQuetzal_JCA_y + orientaAla2Quetzal_JCA_y), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(orientaCentroQuetzal_JCA_x), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(escalaQuetzal_JCA));
+		staticShader.setMat4("model", model);
+		QuetzalAla2JCA.Draw(staticShader);
 		
 		//*************************************************************************************************************
 		
@@ -1029,13 +1089,18 @@ void my_input(GLFWwindow *window, int key, int scancode, int action, int mode)
 		movAuto2_x = 0.0f;
 		*/
 
+		
 		//Animación persona corriendo
 		animacion2_JCA ^= true;
 		recorrido0_PA_JCA = true;
 		recorrido1_PA_JCA = false;
 		movPersonaAterrada_JCA_x = 0.0f;
 		movPersonaAterrada_JCA_z = 0.0f;
-		miVariable1 = 0.0f;
+		miVariable1_JCA = 0.0f;
+		orientaAla1Quetzal_JCA_y = 0.0f;
+		orientaAla2Quetzal_JCA_y = 0.0f;
+		orientaCentroQuetzal_JCA_x = 0.0f;
+		
 	}
 
 	//To play KeyFrame animation 
