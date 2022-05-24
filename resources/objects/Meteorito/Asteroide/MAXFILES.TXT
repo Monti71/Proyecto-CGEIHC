@@ -1,5 +1,0 @@
-﻿D:\Projects\00. Sponsored\66.  2012 DA14\t$m$p$$$\A2012DA14_spot.max
-D:\Projects\00. Sponsored\66.  2012 DA14\t$m$p$$$\MAXFILES.TXT
-D:\Projects\00. Sponsored\66.  2012 DA14\Asteroid_2012_D14_Deform.png
-D:\Projects\00. Sponsored\66.  2012 DA14\Asteroid_2012_D14_Diffuse.png
-D:\Projects\00. Sponsored\66.  2012 DA14\Asteroid_2012_D14_Bump.png
