@@ -44,7 +44,7 @@ GLFWmonitor *monitors;
 void getResolution(void);
 
 // camera
-Camera camera(glm::vec3(200.0f, 20.0f, 50.0f));
+Camera camera(glm::vec3(-800.0f, 300.0f, 300.0f));
 float MovementSpeed = 0.4f;
 float lastX = SCR_WIDTH / 2.0f;
 float lastY = SCR_HEIGHT / 2.0f;
@@ -123,6 +123,7 @@ bool	recorrido0_A2 = true,
 		recorrido4_A2 = false;
 */
 
+/*
 //********************Para persona aterrada**********************
 bool	animacion2_JCA = false;//La utilizo para animación de la persona asustada
 
@@ -152,11 +153,41 @@ float	orientaCentroQuetzal_JCA_x = 0.0f,
 float	posQuetzal_JCA_x = posPersonaAterrada_JCA_x - 50.0f,
 		posQuetzal_JCA_y = 20.0f,
 		posQuetzal_JCA_z = posPersonaAterrada_JCA_z;
+*/
+
+//**********************Brontosaurio toma agua***********************************
+float	escalaBrontosaurio_JCA = 70.0f;
+float	orientaInicialBrontosaurio_JCA = 0.0f;
+float	posX_Bronto = 100.0f,
+		posY_Bronto = 192.5f,
+		posZ_Bronto = -200.0f;
+
+//Keyframes (Manipulación y dibujo)
+float	posX_Bronto_K = 0.0f,
+		posY_Bronto_K = 0.0f,
+		posZ_Bronto_K = 0.0f,
+		rotBrontoCabeza = 0.0f,
+		rotBrontoCuello = 0.0f,
+		rotBrontoCola = 0.0f,
+		rotBrontoPiernaDD = 0.0f, 
+		rotBrontoPiernaDI = 0.0f,
+		rotBrontoPiernaTD = 0.0f,
+		rotBrontoPiernaTI = 0.0f;
+float	incX_Bronto_K = 0.0f,
+		incY_Bronto_K = 0.0f,
+		incZ_Bronto_K = 0.0f,
+		incRotBrontoCabeza = 0.0f,
+		incRotBrontoCuello = 0.0f,
+		incRotBrontoCola = 0.0f,
+		incRotBrontoPiernaDD = 0.0f,
+		incRotBrontoPiernaDI = 0.0f,
+		incRotBrontoPiernaTD = 0.0f,
+		incRotBrontoPiernaTI = 0.0f;
 
 //*************************************************************************************************************
 
 
-#define MAX_FRAMES 9
+#define MAX_FRAMES 15
 int i_max_steps = 60;
 int i_curr_steps = 0;
 typedef struct _frame
@@ -168,12 +199,27 @@ typedef struct _frame
 	float rotRodIzq;
 	float giroMonito;
 
+	/*******************************MODIFICACIONES DE JESS*******************************/
+	float	posX_Bronto_K = 0.0f,
+			posY_Bronto_K = 0.0f,
+			posZ_Bronto_K = 0.0f,
+			rotBrontoCabeza = 0.0f,
+			rotBrontoCuello = 0.0f,
+			rotBrontoCola = 0.0f,
+			rotBrontoPiernaDD = 0.0f,
+			rotBrontoPiernaDI = 0.0f,
+			rotBrontoPiernaTD = 0.0f,
+			rotBrontoPiernaTI = 0.0f;
+	/************************************************************************************/
+
 }FRAME;
 
 FRAME KeyFrame[MAX_FRAMES];
 int FrameIndex = 0;			//introducir datos
 bool play = false;
 int playIndex = 0;
+
+/**************************************************************************************/
 
 void saveFrame(void)
 {
@@ -183,21 +229,256 @@ void saveFrame(void)
 	KeyFrame[FrameIndex].posX = posX;
 	KeyFrame[FrameIndex].posY = posY;
 	KeyFrame[FrameIndex].posZ = posZ;
-
 	KeyFrame[FrameIndex].rotRodIzq = rotRodIzq;
 	KeyFrame[FrameIndex].giroMonito = giroMonito;
+
+	KeyFrame[FrameIndex].posX_Bronto_K = posX_Bronto_K;
+	KeyFrame[FrameIndex].posY_Bronto_K = posY_Bronto_K;
+	KeyFrame[FrameIndex].posZ_Bronto_K = posZ_Bronto_K;
+	KeyFrame[FrameIndex].rotBrontoCabeza = rotBrontoCabeza;
+	KeyFrame[FrameIndex].rotBrontoCuello = rotBrontoCuello;
+	KeyFrame[FrameIndex].rotBrontoCola = rotBrontoCola;
+	KeyFrame[FrameIndex].rotBrontoPiernaDD = rotBrontoPiernaDD;
+	KeyFrame[FrameIndex].rotBrontoPiernaDI = rotBrontoPiernaDI;
+	KeyFrame[FrameIndex].rotBrontoPiernaTD = rotBrontoPiernaTD;
+	KeyFrame[FrameIndex].rotBrontoPiernaTI = rotBrontoPiernaTI;
 
 	FrameIndex++;
 }
 
+/******************************MODIFICACIONES DE JESS**********************************/
+/*Aquí se pueden grabar los frames previamente. Una vez que se ejecuta el programa,
+* se presiona la tecla q para que se vayan guardando los frames con los valoreS que
+* se cargan en esta función.
+*/
+void definirFrames(void) {
+	std::cout << "Frame Index = " << FrameIndex << std::endl;
+
+	if (FrameIndex == 0) {
+		posX_Bronto_K = 0.0;
+		posY_Bronto_K = 0.0;
+		posZ_Bronto_K = 0.0;
+		rotBrontoCabeza = 0.0;
+		rotBrontoCuello = 0.0;
+		rotBrontoCola = 0.0;
+		rotBrontoPiernaDD = 0.0;
+		rotBrontoPiernaDI = 0.0;
+		rotBrontoPiernaTD = 0.0;
+		rotBrontoPiernaTI = 0.0;
+	}
+	if (FrameIndex == 1) {
+		posX_Bronto_K = -30.0;
+		posY_Bronto_K = 0.0;
+		posZ_Bronto_K = 100.0;
+		rotBrontoCabeza = 0.0;
+		rotBrontoCuello = 0.0;
+		rotBrontoCola = 20.0;
+		rotBrontoPiernaDD = 20.0;
+		rotBrontoPiernaDI = 0.0;
+		rotBrontoPiernaTD = 20.0;
+		rotBrontoPiernaTI = 0.0;
+	}
+	if (FrameIndex == 2) {
+		posX_Bronto_K = -60.0;
+		posY_Bronto_K = 0.0;
+		posZ_Bronto_K = 200.0;
+		rotBrontoCabeza = 0.0;
+		rotBrontoCuello = 0.0;
+		rotBrontoCola = -20.0;
+		rotBrontoPiernaDD = 0.0;
+		rotBrontoPiernaDI = 20.0;
+		rotBrontoPiernaTD = 0.0;
+		rotBrontoPiernaTI = 20.0;
+	}
+	if (FrameIndex == 3) {
+		posX_Bronto_K = -90.0;
+		posY_Bronto_K = 0.0;
+		posZ_Bronto_K = 300.0;
+		rotBrontoCabeza = 0.0;
+		rotBrontoCuello = 0.0;
+		rotBrontoCola = 20.0;
+		rotBrontoPiernaDD = 20.0;
+		rotBrontoPiernaDI = 0.0;
+		rotBrontoPiernaTD = 20.0;
+		rotBrontoPiernaTI = 0.0;
+	}
+	if (FrameIndex == 4) {
+		posX_Bronto_K = -120.0;
+		posY_Bronto_K = 0.0;
+		posZ_Bronto_K = 400.0;
+		rotBrontoCabeza = 0.0;
+		rotBrontoCuello = 0.0;
+		rotBrontoCola = -20.0;
+		rotBrontoPiernaDD = 0.0;
+		rotBrontoPiernaDI = 20.0;
+		rotBrontoPiernaTD = 0.0;
+		rotBrontoPiernaTI = 20.0;
+	}
+	if (FrameIndex == 5) {
+		posX_Bronto_K = -120.0;
+		posY_Bronto_K = 0.0;
+		posZ_Bronto_K = 400.0;
+		rotBrontoCabeza = 0.0;
+		rotBrontoCuello = 0.0;
+		rotBrontoCola = 20.0;
+		rotBrontoPiernaDD = 0.0;
+		rotBrontoPiernaDI = 0.0;
+		rotBrontoPiernaTD = 0.0;
+		rotBrontoPiernaTI = 0.0;
+	}
+	//Empieza a bajar cuello
+	if (FrameIndex == 6) {
+		posX_Bronto_K = -120.0;
+		posY_Bronto_K = 0.0;
+		posZ_Bronto_K = 400.0;
+		rotBrontoCabeza = 10.0;
+		rotBrontoCuello = 20.0;
+		rotBrontoCola = -10.0;
+		rotBrontoPiernaDD = 0.0;
+		rotBrontoPiernaDI = 0.0;
+		rotBrontoPiernaTD = 0.0;
+		rotBrontoPiernaTI = 0.0;
+	}
+	if (FrameIndex == 7) {
+		posX_Bronto_K = -120.0;
+		posY_Bronto_K = 0.0;
+		posZ_Bronto_K = 400.0;
+		rotBrontoCabeza = 15.0;
+		rotBrontoCuello = 40.0;
+		rotBrontoCola = 10.0;
+		rotBrontoPiernaDD = 0.0;
+		rotBrontoPiernaDI = 0.0;
+		rotBrontoPiernaTD = 0.0;
+		rotBrontoPiernaTI = 0.0;
+	}
+	if (FrameIndex == 8) {
+		posX_Bronto_K = -120.0;
+		posY_Bronto_K = 0.0;
+		posZ_Bronto_K = 400.0;
+		rotBrontoCabeza = 20.0;
+		rotBrontoCuello = 60.0;
+		rotBrontoCola = -10.0;
+		rotBrontoPiernaDD = 0.0;
+		rotBrontoPiernaDI = 0.0;
+		rotBrontoPiernaTD = 0.0;
+		rotBrontoPiernaTI = 0.0;
+	}
+	//Su cuello se queda abajo
+	if (FrameIndex == 9) {
+		posX_Bronto_K = -120.0;
+		posY_Bronto_K = 0.0;
+		posZ_Bronto_K = 400.0;
+		rotBrontoCabeza = -15.0;
+		rotBrontoCuello = 80.0;
+		rotBrontoCola = 10.0;
+		rotBrontoPiernaDD = 0.0;
+		rotBrontoPiernaDI = 0.0;
+		rotBrontoPiernaTD = 0.0;
+		rotBrontoPiernaTI = 0.0;
+	}
+	if (FrameIndex == 10) {
+		posX_Bronto_K = -120.0;
+		posY_Bronto_K = 0.0;
+		posZ_Bronto_K = 400.0;
+		rotBrontoCabeza = 0.0;
+		rotBrontoCuello = 80.0;
+		rotBrontoCola = -10.0;
+		rotBrontoPiernaDD = 0.0;
+		rotBrontoPiernaDI = 0.0;
+		rotBrontoPiernaTD = 0.0;
+		rotBrontoPiernaTI = 0.0;
+	}
+	if (FrameIndex == 11) {
+		posX_Bronto_K = -120.0;
+		posY_Bronto_K = 0.0;
+		posZ_Bronto_K = 400.0;
+		rotBrontoCabeza = -15;
+		rotBrontoCuello = 80.0;
+		rotBrontoCola = 10.0;
+		rotBrontoPiernaDD = 0.0;
+		rotBrontoPiernaDI = 0.0;
+		rotBrontoPiernaTD = 0.0;
+		rotBrontoPiernaTI = 0.0;
+	}
+	//Empieza a subir cuello
+	if (FrameIndex == 12) {
+		posX_Bronto_K = -120.0;
+		posY_Bronto_K = 0.0;
+		posZ_Bronto_K = 400.0;
+		rotBrontoCabeza = -10.0;
+		rotBrontoCuello = 40.0;
+		rotBrontoCola = -10.0;
+		rotBrontoPiernaDD = 0.0;
+		rotBrontoPiernaDI = 0.0;
+		rotBrontoPiernaTD = 0.0;
+		rotBrontoPiernaTI = 0.0;
+	}
+	if (FrameIndex == 13) {
+		posX_Bronto_K = -120.0;
+		posY_Bronto_K = 0.0;
+		posZ_Bronto_K = 400.0;
+		rotBrontoCabeza = -5.0;
+		rotBrontoCuello = 20.0;
+		rotBrontoCola = 10.0;
+		rotBrontoPiernaDD = 0.0;
+		rotBrontoPiernaDI = 0.0;
+		rotBrontoPiernaTD = 0.0;
+		rotBrontoPiernaTI = 0.0;
+	}
+	if (FrameIndex == 14) {
+		posX_Bronto_K = -120.0;
+		posY_Bronto_K = 0.0;
+		posZ_Bronto_K = 400.0;
+		rotBrontoCabeza = 0.0;
+		rotBrontoCuello = 0.0;
+		rotBrontoCola = -10.0;
+		rotBrontoPiernaDD = 0.0;
+		rotBrontoPiernaDI = 0.0;
+		rotBrontoPiernaTD = 0.0;
+		rotBrontoPiernaTI = 0.0;
+	}
+
+	KeyFrame[FrameIndex].posX = posX;
+	KeyFrame[FrameIndex].posY = posY;
+	KeyFrame[FrameIndex].posZ = posZ;
+	KeyFrame[FrameIndex].rotRodIzq = rotRodIzq;
+	KeyFrame[FrameIndex].giroMonito = giroMonito;
+
+	KeyFrame[FrameIndex].posX_Bronto_K = posX_Bronto_K;
+	KeyFrame[FrameIndex].posY_Bronto_K = posY_Bronto_K;
+	KeyFrame[FrameIndex].posZ_Bronto_K = posZ_Bronto_K;
+	KeyFrame[FrameIndex].rotBrontoCabeza = rotBrontoCabeza;
+	KeyFrame[FrameIndex].rotBrontoCuello = rotBrontoCuello;
+	KeyFrame[FrameIndex].rotBrontoCola = rotBrontoCola;
+	KeyFrame[FrameIndex].rotBrontoPiernaDD = rotBrontoPiernaDD;
+	KeyFrame[FrameIndex].rotBrontoPiernaDI = rotBrontoPiernaDI;
+	KeyFrame[FrameIndex].rotBrontoPiernaTD = rotBrontoPiernaTD;
+	KeyFrame[FrameIndex].rotBrontoPiernaTI = rotBrontoPiernaTI;
+
+	FrameIndex++;
+}
+/**************************************************************************************/
+
 void resetElements(void)
 {
+	/*Esto hace que, cada que se presione la tecla de reproducir (p), las posiciones tomen el valor
+	cero del keyFrame*/
 	posX = KeyFrame[0].posX;
 	posY = KeyFrame[0].posY;
 	posZ = KeyFrame[0].posZ;
-
 	rotRodIzq = KeyFrame[0].rotRodIzq;
 	giroMonito = KeyFrame[0].giroMonito;
+
+	posX_Bronto_K = KeyFrame[0].posX_Bronto_K;
+	posY_Bronto_K = KeyFrame[0].posY_Bronto_K;
+	posZ_Bronto_K = KeyFrame[0].posZ_Bronto_K;
+	rotBrontoCabeza = KeyFrame[0].rotBrontoCabeza;
+	rotBrontoCuello = KeyFrame[0].rotBrontoCuello;
+	rotBrontoCola = KeyFrame[0].rotBrontoCola;
+	rotBrontoPiernaDD = KeyFrame[0].rotBrontoPiernaDD;
+	rotBrontoPiernaDI = KeyFrame[0].rotBrontoPiernaDI;
+	rotBrontoPiernaTD = KeyFrame[0].rotBrontoPiernaTD;
+	rotBrontoPiernaTI = KeyFrame[0].rotBrontoPiernaTI;
 }
 
 void interpolation(void)
@@ -205,10 +486,19 @@ void interpolation(void)
 	incX = (KeyFrame[playIndex + 1].posX - KeyFrame[playIndex].posX) / i_max_steps;
 	incY = (KeyFrame[playIndex + 1].posY - KeyFrame[playIndex].posY) / i_max_steps;
 	incZ = (KeyFrame[playIndex + 1].posZ - KeyFrame[playIndex].posZ) / i_max_steps;
-
 	rotInc = (KeyFrame[playIndex + 1].rotRodIzq - KeyFrame[playIndex].rotRodIzq) / i_max_steps;
 	giroMonitoInc = (KeyFrame[playIndex + 1].giroMonito - KeyFrame[playIndex].giroMonito) / i_max_steps;
 
+	incX_Bronto_K = (KeyFrame[playIndex + 1].posX_Bronto_K - KeyFrame[playIndex].posX_Bronto_K) / i_max_steps;
+	incY_Bronto_K = (KeyFrame[playIndex + 1].posY_Bronto_K - KeyFrame[playIndex].posY_Bronto_K) / i_max_steps;
+	incZ_Bronto_K = (KeyFrame[playIndex + 1].posZ_Bronto_K - KeyFrame[playIndex].posZ_Bronto_K) / i_max_steps;
+	incRotBrontoCabeza = (KeyFrame[playIndex + 1].rotBrontoCabeza - KeyFrame[playIndex].rotBrontoCabeza) / i_max_steps;
+	incRotBrontoCuello = (KeyFrame[playIndex + 1].rotBrontoCuello - KeyFrame[playIndex].rotBrontoCuello) / i_max_steps;
+	incRotBrontoCola = (KeyFrame[playIndex + 1].rotBrontoCola - KeyFrame[playIndex].rotBrontoCola) / i_max_steps;
+	incRotBrontoPiernaDD = (KeyFrame[playIndex + 1].rotBrontoPiernaDD - KeyFrame[playIndex].rotBrontoPiernaDD) / i_max_steps;
+	incRotBrontoPiernaDI = (KeyFrame[playIndex + 1].rotBrontoPiernaDI - KeyFrame[playIndex].rotBrontoPiernaDI) / i_max_steps;
+	incRotBrontoPiernaTD = (KeyFrame[playIndex + 1].rotBrontoPiernaTD - KeyFrame[playIndex].rotBrontoPiernaTD) / i_max_steps;
+	incRotBrontoPiernaTI = (KeyFrame[playIndex + 1].rotBrontoPiernaTI - KeyFrame[playIndex].rotBrontoPiernaTI) / i_max_steps;
 }
 
 void animate(void)
@@ -238,9 +528,19 @@ void animate(void)
 			posX += incX;
 			posY += incY;
 			posZ += incZ;
-
 			rotRodIzq += rotInc;
 			giroMonito += giroMonitoInc;
+
+			posX_Bronto_K += incX_Bronto_K;
+			posY_Bronto_K += incY_Bronto_K;
+			posZ_Bronto_K += incZ_Bronto_K;
+			rotBrontoCabeza += incRotBrontoCabeza;
+			rotBrontoCuello += incRotBrontoCuello;
+			rotBrontoCola += incRotBrontoCola;
+			rotBrontoPiernaDD += incRotBrontoPiernaDD;
+			rotBrontoPiernaDI += incRotBrontoPiernaDI;
+			rotBrontoPiernaTD += incRotBrontoPiernaTD;
+			rotBrontoPiernaTI += incRotBrontoPiernaTI;
 
 			i_curr_steps++;
 		}
@@ -319,7 +619,7 @@ void animate(void)
 		}
 	}*/
 
-	
+	/*
 	//Persona corriendo
 	if (animacion2_JCA) {
 		if (recorrido0_PA_JCA) {
@@ -387,6 +687,7 @@ void animate(void)
 			}
 		}
 	}
+	*/
 	
 }
 
@@ -500,6 +801,7 @@ int main()
 	Model Auto2JCA("resources/objects/Auto2JCA/Auto2_JCA.obj");
 	Model LlantaAuto2JCA("resources/objects/Auto2JCA/LlantaAuto2_JCA_r.obj");
 
+	/*
 	Model QuetzalCentroJCA("resources/objects/Quetzal/QuetzalCentro.obj");
 	Model QuetzalAla1JCA("resources/objects/Quetzal/QuetzalAla1.obj");
 	Model QuetzalAla2JCA("resources/objects/Quetzal/QuetzalAla2.obj");
@@ -509,6 +811,17 @@ int main()
 
 	ModelAnim PersonaCorriendoJCA("resources/objects/PersonaCorriendo/GoofyRunning.dae");
 	PersonaCorriendoJCA.initShaders(animShader.ID);
+	*/
+
+	Model TorsoBronto("resources/objects/Brontosaurio/Torso_JCA.obj");
+	Model CabezaBronto("resources/objects/Brontosaurio/Cabeza_JCA.obj");
+	Model CuelloBronto("resources/objects/Brontosaurio/Cuello_JCA.obj");
+	Model ColaBronto("resources/objects/Brontosaurio/Cola_JCA.obj");
+	Model PiernaDD_Bronto("resources/objects/Brontosaurio/PiernaDD_JCA.obj");
+	Model PiernaDI_Bronto("resources/objects/Brontosaurio/PiernaDI_JCA.obj");
+	Model PiernaTD_Bronto("resources/objects/Brontosaurio/PiernaTD_JCA.obj");
+	Model PiernaTI_Bronto("resources/objects/Brontosaurio/PiernaTI_JCA.obj");
+	
 	//*************************************************************************************************************
 
 	ModelAnim animacionPersonaje("resources/objects/Personaje1/PersonajeBrazo.dae");
@@ -517,7 +830,8 @@ int main()
 	ModelAnim ninja("resources/objects/ZombieWalk/ZombieWalk.dae");
 	ninja.initShaders(animShader.ID);
 
-	//Inicialización de KeyFrames
+	
+	//Inicialización de KeyFrames.
 	for (int i = 0; i < MAX_FRAMES; i++)
 	{
 		KeyFrame[i].posX = 0;
@@ -525,6 +839,17 @@ int main()
 		KeyFrame[i].posZ = 0;
 		KeyFrame[i].rotRodIzq = 0;
 		KeyFrame[i].giroMonito = 0;
+
+		KeyFrame[i].posX_Bronto_K = 0;
+		KeyFrame[i].posY_Bronto_K = 0;
+		KeyFrame[i].posZ_Bronto_K = 0;
+		KeyFrame[i].rotBrontoCabeza = 0;
+		KeyFrame[i].rotBrontoCuello = 0;
+		KeyFrame[i].rotBrontoCola = 0;
+		KeyFrame[i].rotBrontoPiernaDD = 0;
+		KeyFrame[i].rotBrontoPiernaDI = 0;
+		KeyFrame[i].rotBrontoPiernaTD = 0;
+		KeyFrame[i].rotBrontoPiernaTI = 0;
 	}
 
 	// draw in wireframe
@@ -584,7 +909,9 @@ int main()
 		glm::mat4 tmpCA1 = glm::mat4(1.0f);//Temporal para cubo auto 1
 
 		/*****************MODIFICACIONES DE JESS*******************************************************/
-		glm::mat4 tmpCA2 = glm::mat4(1.0f);//Temporal para quetzal
+		//glm::mat4 tmpCA2 = glm::mat4(1.0f);//Temporal para quetzal
+		glm::mat4 tmpCA3 = glm::mat4(1.0f);//Temporal para brontosaurio
+		glm::mat4 tmpCA4 = glm::mat4(1.0f);//Temporal para cuello brontosaurio
 		/**********************************************************************************************/
 
 		// view/projection transformations
@@ -637,6 +964,7 @@ int main()
 		//*************       MODIFICACIONES DE JESS      ****************************
 		//
 		
+		/*
 		//Animación para persona que se asusta y corre
 		model = glm::translate(glm::mat4(1.0f), glm::vec3(posPersonaAterrada_JCA_x + movPersonaAterrada_JCA_x, posPersonaAterrada_JCA_y + movPersonaAterrada_JCA_y, posPersonaAterrada_JCA_z + movPersonaAterrada_JCA_z)); // translate it down so it's at the center of the scene
 		model = glm::scale(model, glm::vec3(escalaPersonaAterrada_JCA));	// it's a bit too big for our scene, so scale it down
@@ -650,7 +978,7 @@ int main()
 			//Persona aterrada
 			PersonaAterradaJCA.Draw(animShader);
 		}
-		
+		*/
 		
 		//*************************************************************************************************************
 
@@ -867,6 +1195,7 @@ int main()
 
 		*/
 
+		/*
 		//Quetzal
 		//Centro
 		tmpCA2 = model = glm::translate(glm::mat4(1.0f), glm::vec3(posQuetzal_JCA_x, posQuetzal_JCA_y, posQuetzal_JCA_z));
@@ -891,7 +1220,65 @@ int main()
 		model = glm::scale(model, glm::vec3(escalaQuetzal_JCA));
 		staticShader.setMat4("model", model);
 		QuetzalAla2JCA.Draw(staticShader);
-		
+		*/
+
+		//Brontosaurio
+		//Torso
+		model = glm::translate(glm::mat4(1.0f), glm::vec3(posX_Bronto+posX_Bronto_K, posY_Bronto+posY_Bronto_K, posZ_Bronto+posZ_Bronto_K));
+		tmpCA3 = model = glm::rotate(model, glm::radians(orientaInicialBrontosaurio_JCA), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(escalaBrontosaurio_JCA));
+		staticShader.setMat4("model", model);
+		TorsoBronto.Draw(staticShader);
+
+		//Cuello
+		model = glm::translate(tmpCA3, glm::vec3(0.0f, 30.0f, 83.0f));//0.0,30.0,77.0
+		tmpCA4 = model = glm::rotate(model, glm::radians(rotBrontoCuello), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(escalaBrontosaurio_JCA));
+		staticShader.setMat4("model", model);
+		CuelloBronto.Draw(staticShader);
+
+		//Cabeza
+		model = glm::translate(tmpCA4, glm::vec3(0.0f, 235.0f, 195.0f));//270
+		model = glm::rotate(model, glm::radians(rotBrontoCabeza), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(escalaBrontosaurio_JCA));
+		staticShader.setMat4("model", model);
+		CabezaBronto.Draw(staticShader);
+
+		//Cola
+		model = glm::translate(tmpCA3, glm::vec3(0.0f, 0.0f, -78.0f));
+		model = glm::rotate(model, glm::radians(rotBrontoCola), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(escalaBrontosaurio_JCA));
+		staticShader.setMat4("model", model);
+		ColaBronto.Draw(staticShader);
+
+		//Pierna DD
+		model = glm::translate(tmpCA3, glm::vec3(-35.0f, -18.0f, 60.0f));
+		model = glm::rotate(model, glm::radians(rotBrontoPiernaDD), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(escalaBrontosaurio_JCA));
+		staticShader.setMat4("model", model);
+		PiernaDD_Bronto.Draw(staticShader);
+
+		//Pierna DI
+		model = glm::translate(tmpCA3, glm::vec3(35.0f, -18.0f, 60.0f));
+		model = glm::rotate(model, glm::radians(rotBrontoPiernaDI), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(escalaBrontosaurio_JCA));
+		staticShader.setMat4("model", model);
+		PiernaDI_Bronto.Draw(staticShader);
+
+		//Pierna TD
+		model = glm::translate(tmpCA3, glm::vec3(-35.0f, 2.0f, -60.0f));
+		model = glm::rotate(model, glm::radians(rotBrontoPiernaTD), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(escalaBrontosaurio_JCA));
+		staticShader.setMat4("model", model);
+		PiernaTD_Bronto.Draw(staticShader);
+
+		//Pierna TI
+		model = glm::translate(tmpCA3, glm::vec3(35.0f, 2.0f, -60.0f));
+		model = glm::rotate(model, glm::radians(rotBrontoPiernaTI), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(escalaBrontosaurio_JCA));
+		staticShader.setMat4("model", model);
+		PiernaTI_Bronto.Draw(staticShader);
+
 		//*************************************************************************************************************
 		
 
@@ -1093,7 +1480,7 @@ void my_input(GLFWwindow *window, int key, int scancode, int action, int mode)
 		movAuto2_x = 0.0f;
 		*/
 
-		
+		/*
 		//Animación persona corriendo
 		animacion2_JCA ^= true;
 		recorrido0_PA_JCA = true;
@@ -1105,6 +1492,7 @@ void my_input(GLFWwindow *window, int key, int scancode, int action, int mode)
 		orientaAla2Quetzal_JCA_y = 0.0f;
 		orientaCentroQuetzal_JCA_x = 0.0f;
 		orientaPersonaAterrada_JCA = 0.0f;
+		*/
 		
 	}
 
@@ -1136,6 +1524,11 @@ void my_input(GLFWwindow *window, int key, int scancode, int action, int mode)
 		{
 			saveFrame();
 		}
+	}
+
+	if (key == GLFW_KEY_Q && action == GLFW_PRESS)
+	{
+		definirFrames();
 	}
 }
 
